@@ -1,0 +1,99 @@
+/* GLG Documentation Custom Styles */
+
+:root {
+  --glg-primary: #6366f1;
+  --glg-primary-dark: #818cf8;
+  --glg-gradient: linear-gradient(135deg, #6366f1, #818cf8);
+}
+
+/* Logo area */
+.md-header .md-header__button.md-logo img {
+  border-radius: 4px;
+}
+
+/* Admonition enhancements */
+.admonition-title {
+  font-weight: 600;
+}
+
+/* Code block enhancements */
+.highlight code {
+  font-size: 0.85em;
+}
+
+/* Table enhancements */
+.md-typeset table:not([class]) {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.md-typeset table:not([class]) th {
+  background: var(--glg-primary);
+  color: white;
+  font-weight: 600;
+}
+
+/* Card-like containers */
+.md-typeset .grid {
+  gap: 1rem;
+}
+
+/* CLI command styling */
+.highlight .gp {
+  color: var(--glg-primary);
+  font-weight: 600;
+}
+
+/* Navigation enhancements */
+.md-nav__link {
+  font-size: 0.875rem;
+}
+
+/* Footer styling */
+.md-footer {
+  margin-top: 2rem;
+}
+
+/* Badge styling for version info */
+.md-source-file {
+  font-size: 0.75rem;
+}
+
+/* Responsive improvements */
+@media screen and (max-width: 76.1875em) {
+  .md-nav--primary .md-nav__title {
+    background: var(--glg-primary);
+  }
+}
+
+/* Print styles */
+@media print {
+  .md-sidebar,
+  .md-header,
+  .md-footer {
+    display: none;
+  }
+
+  .md-content {
+    margin: 0;
+    max-width: 100%;
+  }
+}
+
+/* Mermaid diagram styling */
+.mermaid {
+  text-align: center;
+  margin: 1rem 0;
+}
+
+/* Task list styling */
+.md-typeset .task-list-item input[type="checkbox"] {
+  margin-right: 0.5em;
+}
+
+/* Tab content styling */
+.tabbed-set > input:checked ~ .tabbed-content {
+  padding: 1rem;
+  border-radius: 0 0 8px 8px;
+}

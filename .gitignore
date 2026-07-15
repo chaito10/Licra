@@ -24,3 +24,10 @@ rustc-ice-*.txt
 #.idea/
 release/
 *.zip
+
+# MkDocs build output
+site/
+
+# Python
+__pycache__/
+*.pyc
