@@ -1,0 +1,2395 @@
+pub fn get_index_html() -> &'static str {
+    INDEX_HTML
+}
+
+pub fn get_style_css() -> &'static str {
+    STYLE_CSS
+}
+
+pub fn get_app_js() -> &'static str {
+    APP_JS
+}
+
+const INDEX_HTML: &str = r#"<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Granular License Generator</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%236366f1'/><text x='16' y='23' font-size='20' text-anchor='middle' fill='white' font-family='monospace' font-weight='bold'>G</text></svg>">
+</head>
+<body>
+    <div id="app" class="app-layout">
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-area">
+                    <svg class="glg-logo" viewBox="0 0 48 48" width="40" height="40" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#818cf8"/>
+                                <stop offset="100%" style="stop-color:#6366f1"/>
+                            </linearGradient>
+                        </defs>
+                        <rect width="48" height="48" rx="10" fill="url(#logoGrad)"/>
+                        <path d="M14 14h8v2h-6v4h5v2h-5v6h-2V14zm10 0h8v2h-6v3.5h5v2h-5V24h8v2H22V14z" fill="white" opacity="0.95"/>
+                        <circle cx="36" cy="14" r="2.5" fill="white" opacity="0.7"/>
+                        <circle cx="36" cy="24" r="2.5" fill="white" opacity="0.7"/>
+                        <path d="M10 38l4-4 3 3 5-6 4 4 8-10 4 5" stroke="white" stroke-width="1.5" fill="none" opacity="0.5"/>
+                    </svg>
+                    <div class="logo-text">
+                        <h1>GLG</h1>
+                        <span class="version">v1.0</span>
+                    </div>
+                </div>
+                <button id="theme-toggle" class="theme-toggle" title="Toggle theme" aria-label="Toggle dark/light theme">
+                    <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                    <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                </button>
+            </div>
+
+            <div class="search-container">
+                <div class="search-input-wrapper">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    <input type="text" id="search-input" placeholder="Search questions..." autocomplete="off">
+                    <kbd class="search-shortcut">Ctrl+K</kbd>
+                </div>
+                <div id="search-results" class="search-results hidden"></div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <ul id="step-list" class="step-list"></ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>Progress</span>
+                        <span id="progress-pct">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div id="progress-fill" class="progress-fill" style="width:0%"></div>
+                    </div>
+                </div>
+                <button id="btn-reset" class="btn btn-ghost btn-sm" title="Reset all answers">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+                    Reset
+                </button>
+            </div>
+        </aside>
+
+        <button id="sidebar-toggle" class="sidebar-toggle" aria-label="Toggle sidebar">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+
+        <main class="main-content">
+            <div id="main-scroll" class="main-scroll">
+                <div class="content-grid">
+                    <section id="wizard-panel" class="wizard-panel">
+                        <div id="wizard-steps" class="wizard-steps"></div>
+                    </section>
+                    <aside id="preview-panel" class="preview-panel">
+                        <div class="preview-header">
+                            <h3>License Preview</h3>
+                            <div class="preview-actions">
+                                <button id="btn-copy" class="btn btn-ghost btn-sm" title="Copy to clipboard">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                                    Copy
+                                </button>
+                                <button id="btn-toggle-preview" class="btn btn-ghost btn-sm" title="Toggle preview panel">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="12" y1="3" x2="12" y2="21"/></svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div id="preview-content" class="preview-content">
+                            <div class="preview-placeholder">
+                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                                <p>License preview will appear here as you answer questions.</p>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+
+            <footer class="bottom-bar">
+                <div class="bottom-left">
+                    <button id="btn-prev" class="btn btn-secondary" disabled>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                        Previous
+                    </button>
+                </div>
+                <div class="bottom-center">
+                    <div id="step-indicator" class="step-indicator"></div>
+                </div>
+                <div class="bottom-right">
+                    <button id="btn-validate" class="btn btn-ghost">Validate</button>
+                    <button id="btn-explain" class="btn btn-ghost">Explain</button>
+                    <button id="btn-export" class="btn btn-secondary" disabled>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        Export
+                    </button>
+                    <button id="btn-next" class="btn btn-primary">
+                        Next
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </button>
+                    <button id="btn-generate" class="btn btn-accent hidden">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                        Generate License
+                    </button>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <div id="toast-container" class="toast-container"></div>
+
+    <div id="modal-overlay" class="modal-overlay hidden">
+        <div id="modal" class="modal" role="dialog" aria-modal="true">
+            <div class="modal-header">
+                <h3 id="modal-title">Modal</h3>
+                <button id="modal-close" class="btn btn-ghost btn-sm" aria-label="Close">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+            </div>
+            <div id="modal-body" class="modal-body"></div>
+            <div id="modal-footer" class="modal-footer"></div>
+        </div>
+    </div>
+
+    <script src="/app.js"></script>
+</body>
+</html>"#;
+
+const STYLE_CSS: &str = r#":root,
+[data-theme="dark"] {
+    --bg-primary: #0f1117;
+    --bg-secondary: #161822;
+    --bg-tertiary: #1c1f2e;
+    --bg-card: #1e2030;
+    --bg-hover: #252840;
+    --bg-active: #2d3054;
+    --bg-input: #1a1d2e;
+    --border-color: #2a2d42;
+    --border-focus: #6366f1;
+    --text-primary: #e2e4f0;
+    --text-secondary: #9398b0;
+    --text-muted: #6b7094;
+    --accent: #6366f1;
+    --accent-hover: #818cf8;
+    --accent-muted: rgba(99,102,241,0.15);
+    --accent-text: #ffffff;
+    --success: #22c55e;
+    --success-bg: rgba(34,197,94,0.12);
+    --warning: #f59e0b;
+    --warning-bg: rgba(245,158,11,0.12);
+    --danger: #ef4444;
+    --danger-bg: rgba(239,68,68,0.12);
+    --info: #3b82f6;
+    --info-bg: rgba(59,130,246,0.12);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,0.5);
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
+    --sidebar-width: 280px;
+    --preview-width: 420px;
+    --bottom-bar-height: 64px;
+    --transition: 0.2s ease;
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+}
+
+[data-theme="light"] {
+    --bg-primary: #f8f9fc;
+    --bg-secondary: #ffffff;
+    --bg-tertiary: #f0f1f5;
+    --bg-card: #ffffff;
+    --bg-hover: #eef0f6;
+    --bg-active: #e4e7f0;
+    --bg-input: #f4f5f9;
+    --border-color: #d8dce8;
+    --border-focus: #6366f1;
+    --text-primary: #1a1d2e;
+    --text-secondary: #555b78;
+    --text-muted: #8b91a8;
+    --accent: #6366f1;
+    --accent-hover: #4f46e5;
+    --accent-muted: rgba(99,102,241,0.1);
+    --accent-text: #ffffff;
+    --success: #16a34a;
+    --success-bg: rgba(22,163,74,0.1);
+    --warning: #d97706;
+    --warning-bg: rgba(217,119,6,0.1);
+    --danger: #dc2626;
+    --danger-bg: rgba(220,38,38,0.1);
+    --info: #2563eb;
+    --info-bg: rgba(37,99,235,0.1);
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
+}
+
+*,*::before,*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: var(--font-sans);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow: hidden;
+    height: 100vh;
+}
+
+.app-layout {
+    display: grid;
+    grid-template-columns: var(--sidebar-width) 1fr;
+    grid-template-rows: 1fr;
+    height: 100vh;
+    transition: grid-template-columns var(--transition);
+}
+
+.app-layout.sidebar-collapsed {
+    grid-template-columns: 0px 1fr;
+}
+
+.sidebar {
+    background: var(--bg-secondary);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+    z-index: 20;
+    transition: transform var(--transition);
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 16px 12px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.glg-logo {
+    flex-shrink: 0;
+}
+
+.logo-text h1 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+}
+
+.logo-text .version {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+}
+
+.theme-toggle {
+    background: none;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition);
+}
+
+.theme-toggle:hover {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .icon-moon { display: none; }
+[data-theme="light"] .icon-sun { display: none; }
+[data-theme="dark"] .icon-sun { display: block; }
+[data-theme="light"] .icon-moon { display: block; }
+
+.search-container {
+    padding: 12px 16px;
+    position: relative;
+}
+
+.search-input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--bg-input);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 6px 10px;
+    transition: border-color var(--transition);
+}
+
+.search-input-wrapper:focus-within {
+    border-color: var(--border-focus);
+}
+
+.search-input-wrapper svg {
+    color: var(--text-muted);
+    flex-shrink: 0;
+}
+
+.search-input-wrapper input {
+    background: none;
+    border: none;
+    outline: none;
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    width: 100%;
+    font-family: var(--font-sans);
+}
+
+.search-input-wrapper input::placeholder {
+    color: var(--text-muted);
+}
+
+.search-shortcut {
+    font-size: 0.65rem;
+    padding: 2px 5px;
+    border-radius: 3px;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    font-family: var(--font-sans);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.search-results {
+    position: absolute;
+    top: 100%;
+    left: 16px;
+    right: 16px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    max-height: 320px;
+    overflow-y: auto;
+    z-index: 50;
+}
+
+.search-results.hidden {
+    display: none;
+}
+
+.search-result-item {
+    padding: 10px 14px;
+    cursor: pointer;
+    border-bottom: 1px solid var(--border-color);
+    transition: background var(--transition);
+}
+
+.search-result-item:last-child {
+    border-bottom: none;
+}
+
+.search-result-item:hover {
+    background: var(--bg-hover);
+}
+
+.search-result-item .sr-label {
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.search-result-item .sr-step {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+
+.search-no-results {
+    padding: 16px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+.sidebar-nav {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px 0;
+}
+
+.sidebar-nav::-webkit-scrollbar {
+    width: 4px;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 2px;
+}
+
+.step-list {
+    list-style: none;
+}
+
+.step-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 16px;
+    cursor: pointer;
+    transition: all var(--transition);
+    border-left: 3px solid transparent;
+    position: relative;
+}
+
+.step-item:hover {
+    background: var(--bg-hover);
+}
+
+.step-item.active {
+    background: var(--accent-muted);
+    border-left-color: var(--accent);
+}
+
+.step-item.completed .step-number {
+    background: var(--success);
+    color: white;
+}
+
+.step-number {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.72rem;
+    font-weight: 600;
+    background: var(--bg-tertiary);
+    color: var(--text-muted);
+    flex-shrink: 0;
+    transition: all var(--transition);
+    border: 1.5px solid var(--border-color);
+}
+
+.step-item.active .step-number {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+}
+
+.step-label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    transition: color var(--transition);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.step-item.active .step-label {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.step-item.completed .step-label {
+    color: var(--text-primary);
+}
+
+.sidebar-footer {
+    padding: 12px 16px;
+    border-top: 1px solid var(--border-color);
+}
+
+.progress-container {
+    margin-bottom: 10px;
+}
+
+.progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+}
+
+.progress-bar {
+    height: 5px;
+    background: var(--bg-tertiary);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+    border-radius: 3px;
+    transition: width 0.4s ease;
+}
+
+.sidebar-toggle {
+    display: none;
+    position: fixed;
+    top: 12px;
+    left: 12px;
+    z-index: 30;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    padding: 8px;
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.main-scroll {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px;
+}
+
+.main-scroll::-webkit-scrollbar {
+    width: 6px;
+}
+
+.main-scroll::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 3px;
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: 1fr var(--preview-width);
+    gap: 24px;
+    max-width: 1400px;
+    margin: 0 auto;
+    height: fit-content;
+}
+
+.preview-panel {
+    position: sticky;
+    top: 0;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100vh - var(--bottom-bar-height) - 48px);
+}
+
+.preview-panel.collapsed {
+    display: none;
+}
+
+.preview-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
+}
+
+.preview-header h3 {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.preview-actions {
+    display: flex;
+    gap: 4px;
+}
+
+.preview-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 18px;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    word-break: break-word;
+    color: var(--text-secondary);
+}
+
+.preview-content::-webkit-scrollbar {
+    width: 4px;
+}
+
+.preview-content::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 2px;
+}
+
+.preview-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 40px 20px;
+    text-align: center;
+    color: var(--text-muted);
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+}
+
+.preview-content .license-text {
+    color: var(--text-primary);
+}
+
+.preview-content .license-section {
+    margin-bottom: 16px;
+}
+
+.preview-content .license-section-title {
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.preview-content .license-clause {
+    padding-left: 12px;
+    border-left: 2px solid var(--border-color);
+    margin: 8px 0;
+}
+
+.wizard-panel {
+    min-width: 0;
+}
+
+.wizard-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.wizard-step {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.wizard-step.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.step-header {
+    margin-bottom: 20px;
+}
+
+.step-header h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+}
+
+.step-header p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.question-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    margin-bottom: 16px;
+    transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.question-card:hover {
+    border-color: var(--accent-muted);
+}
+
+.question-card.has-error {
+    border-color: var(--danger);
+    box-shadow: 0 0 0 1px var(--danger);
+}
+
+.question-label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+}
+
+.question-label .required {
+    color: var(--danger);
+    flex-shrink: 0;
+}
+
+.question-description {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    margin-bottom: 14px;
+    line-height: 1.5;
+}
+
+.question-error {
+    font-size: 0.78rem;
+    color: var(--danger);
+    margin-top: 6px;
+    display: none;
+}
+
+.question-card.has-error .question-error {
+    display: block;
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+    width: 100%;
+    padding: 10px 12px;
+    background: var(--bg-input);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-size: 0.88rem;
+    font-family: var(--font-sans);
+    transition: border-color var(--transition), box-shadow var(--transition);
+    outline: none;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+    border-color: var(--border-focus);
+    box-shadow: 0 0 0 3px var(--accent-muted);
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+    color: var(--text-muted);
+}
+
+.form-textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.form-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7094' stroke-width='2' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
+    cursor: pointer;
+}
+
+.form-select option {
+    background: var(--bg-card);
+    color: var(--text-primary);
+}
+
+.checkbox-group,
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.checkbox-item,
+.radio-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all var(--transition);
+    background: var(--bg-input);
+}
+
+.checkbox-item:hover,
+.radio-item:hover {
+    background: var(--bg-hover);
+    border-color: var(--accent-muted);
+}
+
+.checkbox-item.selected,
+.radio-item.selected {
+    background: var(--accent-muted);
+    border-color: var(--accent);
+}
+
+.checkbox-item input,
+.radio-item input {
+    display: none;
+}
+
+.check-indicator {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--border-color);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all var(--transition);
+}
+
+.radio-item .check-indicator {
+    border-radius: 50%;
+}
+
+.checkbox-item.selected .check-indicator,
+.radio-item.selected .check-indicator {
+    border-color: var(--accent);
+    background: var(--accent);
+}
+
+.check-indicator svg {
+    opacity: 0;
+    transition: opacity var(--transition);
+}
+
+.checkbox-item.selected .check-indicator svg,
+.radio-item.selected .check-indicator svg {
+    opacity: 1;
+    color: white;
+}
+
+.check-label {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+}
+
+.checkbox-item.selected .check-label,
+.radio-item.selected .check-label {
+    color: var(--text-primary);
+}
+
+.multi-select {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.multi-select .chip {
+    padding: 6px 14px;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: all var(--transition);
+    background: var(--bg-input);
+    color: var(--text-secondary);
+    user-select: none;
+}
+
+.multi-select .chip:hover {
+    background: var(--bg-hover);
+    border-color: var(--accent-muted);
+}
+
+.multi-select .chip.selected {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: white;
+}
+
+.bottom-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 24px;
+    border-top: 1px solid var(--border-color);
+    background: var(--bg-secondary);
+    height: var(--bottom-bar-height);
+    flex-shrink: 0;
+}
+
+.bottom-left,
+.bottom-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.bottom-center {
+    display: flex;
+    align-items: center;
+}
+
+.step-indicator {
+    display: flex;
+    gap: 6px;
+}
+
+.step-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--border-color);
+    transition: all var(--transition);
+}
+
+.step-dot.active {
+    background: var(--accent);
+    width: 24px;
+    border-radius: 4px;
+}
+
+.step-dot.completed {
+    background: var(--success);
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 18px;
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    font-weight: 500;
+    font-family: var(--font-sans);
+    border: none;
+    cursor: pointer;
+    transition: all var(--transition);
+    white-space: nowrap;
+    user-select: none;
+}
+
+.btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background: var(--accent);
+    color: var(--accent-text);
+}
+
+.btn-primary:hover:not(:disabled) {
+    background: var(--accent-hover);
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-secondary {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover:not(:disabled) {
+    background: var(--bg-hover);
+}
+
+.btn-ghost {
+    background: transparent;
+    color: var(--text-secondary);
+}
+
+.btn-ghost:hover:not(:disabled) {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+}
+
+.btn-accent {
+    background: linear-gradient(135deg, var(--accent), #8b5cf6);
+    color: white;
+    font-weight: 600;
+}
+
+.btn-accent:hover:not(:disabled) {
+    box-shadow: 0 4px 16px rgba(99,102,241,0.4);
+    transform: translateY(-1px);
+}
+
+.btn-sm {
+    padding: 5px 10px;
+    font-size: 0.78rem;
+}
+
+.btn-danger {
+    background: var(--danger);
+    color: white;
+}
+
+.btn-danger:hover:not(:disabled) {
+    background: #dc2626;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.toast {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    font-size: 0.85rem;
+    min-width: 280px;
+    max-width: 420px;
+    animation: toastIn 0.3s ease;
+    border-left: 3px solid var(--accent);
+}
+
+.toast.toast-success { border-left-color: var(--success); }
+.toast.toast-warning { border-left-color: var(--warning); }
+.toast.toast-error { border-left-color: var(--danger); }
+.toast.toast-info { border-left-color: var(--info); }
+
+.toast-icon {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+}
+
+.toast-message {
+    flex: 1;
+}
+
+.toast-close {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 2px;
+    display: flex;
+    align-items: center;
+}
+
+.toast.removing {
+    animation: toastOut 0.3s ease forwards;
+}
+
+@keyframes toastIn {
+    from { opacity: 0; transform: translateX(40px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes toastOut {
+    from { opacity: 1; transform: translateX(0); }
+    to { opacity: 0; transform: translateX(40px); }
+}
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(4px);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.2s ease;
+}
+
+.modal-overlay.hidden {
+    display: none;
+}
+
+.modal {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    width: 90%;
+    max-width: 560px;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-lg);
+    animation: modalIn 0.25s ease;
+}
+
+@keyframes modalIn {
+    from { opacity: 0; transform: scale(0.95) translateY(10px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 22px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.modal-header h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+
+.modal-body {
+    padding: 22px;
+    overflow-y: auto;
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    padding: 14px 22px;
+    border-top: 1px solid var(--border-color);
+}
+
+.code-block {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    overflow-x: auto;
+    white-space: pre;
+    line-height: 1.6;
+    margin: 12px 0;
+}
+
+.license-header { color: var(--accent); font-weight: 700; }
+.license-clause-id { color: var(--warning); }
+.license-keyword { color: #c084fc; }
+.license-string { color: var(--success); }
+.license-comment { color: var(--text-muted); font-style: italic; }
+
+table.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    margin: 12px 0;
+}
+
+table.data-table th,
+table.data-table td {
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+table.data-table th {
+    font-weight: 600;
+    color: var(--text-primary);
+    background: var(--bg-tertiary);
+}
+
+table.data-table td {
+    color: var(--text-secondary);
+}
+
+table.data-table tr:hover td {
+    background: var(--bg-hover);
+}
+
+.loading-spinner {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--border-color);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.72rem;
+    font-weight: 600;
+}
+
+.badge-success { background: var(--success-bg); color: var(--success); }
+.badge-warning { background: var(--warning-bg); color: var(--warning); }
+.badge-danger { background: var(--danger-bg); color: var(--danger); }
+.badge-info { background: var(--info-bg); color: var(--info); }
+
+.divider {
+    height: 1px;
+    background: var(--border-color);
+    margin: 16px 0;
+}
+
+.text-muted { color: var(--text-muted); }
+.text-sm { font-size: 0.82rem; }
+.mt-1 { margin-top: 8px; }
+.mt-2 { margin-top: 16px; }
+.mb-1 { margin-bottom: 8px; }
+.mb-2 { margin-bottom: 16px; }
+
+@media print {
+    .sidebar, .bottom-bar, .preview-panel, .sidebar-toggle { display: none !important; }
+    .app-layout { grid-template-columns: 1fr !important; }
+    .main-scroll { padding: 0; overflow: visible; }
+    .wizard-step { display: block !important; }
+    .question-card { break-inside: avoid; }
+    body { background: white; color: black; overflow: visible; height: auto; }
+}
+
+@media (max-width: 1024px) {
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+    .preview-panel {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 90%;
+        max-width: 420px;
+        height: 100vh;
+        max-height: 100vh;
+        border-radius: 0;
+        z-index: 40;
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+    }
+    .preview-panel.mobile-open {
+        transform: translateX(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .app-layout {
+        grid-template-columns: 1fr;
+    }
+    .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 280px;
+        transform: translateX(-100%);
+        z-index: 50;
+        box-shadow: var(--shadow-lg);
+    }
+    .sidebar.mobile-open {
+        transform: translateX(0);
+    }
+    .sidebar-toggle {
+        display: flex;
+    }
+    .main-scroll {
+        padding: 16px;
+    }
+    .bottom-bar {
+        padding: 10px 16px;
+    }
+    .bottom-bar .btn span.btn-text {
+        display: none;
+    }
+    .step-header h2 {
+        font-size: 1.25rem;
+    }
+}
+
+.sidebar-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 45;
+}
+
+.sidebar-backdrop.visible {
+    display: block;
+}
+"#;
+
+const APP_JS: &str = r#"(function() {
+    'use strict';
+
+    const STEPS = [
+        { id: 'intro',     label: 'Introduction',    icon: '01' },
+        { id: 'ownership', label: 'Ownership',       icon: '02' },
+        { id: 'copyright', label: 'Copyright',       icon: '03' },
+        { id: 'commercial',label: 'Commercial Use',  icon: '04' },
+        { id: 'patent',    label: 'Patent',          icon: '05' },
+        { id: 'source',    label: 'Source Code',     icon: '06' },
+        { id: 'distribution',label:'Distribution',   icon: '07' },
+        { id: 'modification',label:'Modification',   icon: '08' },
+        { id: 'aidata',    label: 'AI & Data',       icon: '09' },
+        { id: 'compliance',label: 'Compliance',      icon: '10' },
+        { id: 'special',   label: 'Special Terms',   icon: '11' },
+        { id: 'review',    label: 'Review',          icon: '12' },
+        { id: 'export',    label: 'Export',          icon: '13' },
+    ];
+
+    const state = {
+        currentStep: 0,
+        answers: {},
+        questions: null,
+        licenseText: '',
+        generating: false,
+    };
+
+    const $ = (sel, ctx) => (ctx || document).querySelector(sel);
+    const $$ = (sel, ctx) => [...(ctx || document).querySelectorAll(sel)];
+
+    function saveProgress() {
+        try {
+            localStorage.setItem('glg_state', JSON.stringify({
+                currentStep: state.currentStep,
+                answers: state.answers,
+            }));
+        } catch (e) { /* storage unavailable */ }
+    }
+
+    function loadProgress() {
+        try {
+            const raw = localStorage.getItem('glg_state');
+            if (raw) {
+                const data = JSON.parse(raw);
+                if (data && typeof data.answers === 'object') {
+                    state.answers = data.answers;
+                    if (typeof data.currentStep === 'number' && data.currentStep < STEPS.length) {
+                        state.currentStep = data.currentStep;
+                    }
+                }
+            }
+        } catch (e) { /* ignore */ }
+    }
+
+    function toast(message, type) {
+        type = type || 'info';
+        const container = $('#toast-container');
+        const el = document.createElement('div');
+        el.className = 'toast toast-' + type;
+        const icons = {
+            success: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>',
+            warning: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',
+            error: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>',
+            info: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>',
+        };
+        el.innerHTML = '<span class="toast-icon">' + (icons[type] || icons.info) + '</span>' +
+            '<span class="toast-message">' + escapeHtml(message) + '</span>' +
+            '<button class="toast-close" aria-label="Close"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>';
+        el.querySelector('.toast-close').addEventListener('click', function() { dismissToast(el); });
+        container.appendChild(el);
+        setTimeout(function() { dismissToast(el); }, 5000);
+    }
+
+    function dismissToast(el) {
+        if (el.classList.contains('removing')) return;
+        el.classList.add('removing');
+        setTimeout(function() { el.remove(); }, 300);
+    }
+
+    function escapeHtml(str) {
+        var d = document.createElement('div');
+        d.appendChild(document.createTextNode(str));
+        return d.innerHTML;
+    }
+
+    function showModal(title, bodyHtml, buttons) {
+        $('#modal-title').textContent = title;
+        $('#modal-body').innerHTML = bodyHtml;
+        var footer = $('#modal-footer');
+        footer.innerHTML = '';
+        if (buttons && buttons.length) {
+            buttons.forEach(function(b) {
+                var btn = document.createElement('button');
+                btn.className = 'btn ' + (b.cls || 'btn-secondary');
+                btn.textContent = b.label;
+                btn.addEventListener('click', function() {
+                    if (b.action) b.action();
+                    hideModal();
+                });
+                footer.appendChild(btn);
+            });
+        }
+        $('#modal-overlay').classList.remove('hidden');
+    }
+
+    function hideModal() {
+        $('#modal-overlay').classList.add('hidden');
+    }
+
+    async function apiGet(path) {
+        try {
+            var resp = await fetch(path);
+            if (!resp.ok) throw new Error('HTTP ' + resp.status);
+            return await resp.json();
+        } catch (e) {
+            toast('API error: ' + e.message, 'error');
+            return null;
+        }
+    }
+
+    async function apiPost(path, body) {
+        try {
+            var resp = await fetch(path, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body),
+            });
+            if (!resp.ok) {
+                var errData = null;
+                try { errData = await resp.json(); } catch (e) { /* ignore */ }
+                throw new Error(errData && errData.error ? errData.error : 'HTTP ' + resp.status);
+            }
+            return await resp.json();
+        } catch (e) {
+            toast('API error: ' + e.message, 'error');
+            return null;
+        }
+    }
+
+    function renderSidebar() {
+        var list = $('#step-list');
+        list.innerHTML = '';
+        STEPS.forEach(function(step, i) {
+            var li = document.createElement('li');
+            li.className = 'step-item' + (i === state.currentStep ? ' active' : '') + (isStepCompleted(i) ? ' completed' : '');
+            li.setAttribute('data-step', i);
+            li.innerHTML = '<span class="step-number">' + (isStepCompleted(i) ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>' : step.icon) + '</span>' +
+                '<span class="step-label">' + step.label + '</span>';
+            li.addEventListener('click', function() { goToStep(i); });
+            list.appendChild(li);
+        });
+    }
+
+    function isStepCompleted(idx) {
+        if (!state.questions) return false;
+        var qs = getQuestionsForStep(idx);
+        if (!qs || qs.length === 0) return true;
+        return qs.every(function(q) {
+            if (!q.required) return true;
+            var val = state.answers[q.id];
+            if (val === undefined || val === null || val === '') return false;
+            if (Array.isArray(val) && val.length === 0) return false;
+            return true;
+        });
+    }
+
+    function updateProgress() {
+        var total = STEPS.length;
+        var completed = 0;
+        for (var i = 0; i < total; i++) {
+            if (isStepCompleted(i)) completed++;
+        }
+        var pct = Math.round((completed / total) * 100);
+        $('#progress-pct').textContent = pct + '%';
+        $('#progress-fill').style.width = pct + '%';
+    }
+
+    function updateStepIndicator() {
+        var container = $('#step-indicator');
+        container.innerHTML = '';
+        STEPS.forEach(function(_, i) {
+            var dot = document.createElement('div');
+            dot.className = 'step-dot' + (i === state.currentStep ? ' active' : '') + (isStepCompleted(i) && i !== state.currentStep ? ' completed' : '');
+            container.appendChild(dot);
+        });
+    }
+
+    function updateButtons() {
+        var prev = $('#btn-prev');
+        var next = $('#btn-next');
+        var gen = $('#btn-generate');
+        var exp = $('#btn-export');
+        prev.disabled = state.currentStep === 0;
+        if (state.currentStep === STEPS.length - 1) {
+            next.classList.add('hidden');
+            gen.classList.remove('hidden');
+        } else {
+            next.classList.remove('hidden');
+            gen.classList.add('hidden');
+        }
+        exp.disabled = !state.licenseText;
+    }
+
+    function getQuestionsForStep(stepIdx) {
+        if (!state.questions) return [];
+        var stepId = STEPS[stepIdx].id;
+        return state.questions.filter(function(q) { return q.step === stepId; });
+    }
+
+    function renderWizardStep(stepIdx) {
+        var container = $('#wizard-steps');
+        container.innerHTML = '';
+        var step = STEPS[stepIdx];
+        var qs = getQuestionsForStep(stepIdx);
+
+        var stepDiv = document.createElement('div');
+        stepDiv.className = 'wizard-step active';
+
+        var header = document.createElement('div');
+        header.className = 'step-header';
+        header.innerHTML = '<h2>' + step.label + '</h2>';
+        if (stepIdx === 0) {
+            header.innerHTML += '<p>Welcome to the Granular License Generator. Answer the questions below to create a customized software license tailored to your needs.</p>';
+        } else {
+            header.innerHTML += '<p>Step ' + (stepIdx + 1) + ' of ' + STEPS.length + '</p>';
+        }
+        stepDiv.appendChild(header);
+
+        if (qs.length === 0 && stepIdx > 0 && stepIdx < STEPS.length - 2) {
+            var empty = document.createElement('div');
+            empty.className = 'question-card';
+            empty.innerHTML = '<p class="text-muted text-sm">No questions for this step yet. Click Next to continue.</p>';
+            stepDiv.appendChild(empty);
+        }
+
+        qs.forEach(function(q) {
+            stepDiv.appendChild(renderQuestion(q));
+        });
+
+        if (stepIdx === STEPS.length - 2) {
+            stepDiv.appendChild(renderReviewStep());
+        }
+        if (stepIdx === STEPS.length - 1) {
+            stepDiv.appendChild(renderExportStep());
+        }
+
+        container.appendChild(stepDiv);
+    }
+
+    function renderQuestion(q) {
+        var card = document.createElement('div');
+        card.className = 'question-card';
+        card.setAttribute('data-question-id', q.id);
+
+        var labelHtml = '<div class="question-label">';
+        if (q.required) labelHtml += '<span class="required">*</span>';
+        labelHtml += '<span>' + escapeHtml(q.label) + '</span></div>';
+        card.innerHTML = labelHtml;
+
+        if (q.description) {
+            var desc = document.createElement('div');
+            desc.className = 'question-description';
+            desc.textContent = q.description;
+            card.appendChild(desc);
+        }
+
+        var inputWrap = document.createElement('div');
+
+        switch (q.type) {
+            case 'checkbox':
+                inputWrap.appendChild(renderCheckboxGroup(q));
+                break;
+            case 'radio':
+                inputWrap.appendChild(renderRadioGroup(q));
+                break;
+            case 'text':
+                inputWrap.appendChild(renderTextInput(q));
+                break;
+            case 'textarea':
+                inputWrap.appendChild(renderTextarea(q));
+                break;
+            case 'select':
+                inputWrap.appendChild(renderSelect(q));
+                break;
+            case 'multi-select':
+                inputWrap.appendChild(renderMultiSelect(q));
+                break;
+            case 'license-text':
+                inputWrap.appendChild(renderLicenseTextarea(q));
+                break;
+            default:
+                inputWrap.appendChild(renderTextInput(q));
+        }
+        card.appendChild(inputWrap);
+
+        var errDiv = document.createElement('div');
+        errDiv.className = 'question-error';
+        errDiv.textContent = 'This field is required.';
+        card.appendChild(errDiv);
+
+        return card;
+    }
+
+    function renderTextInput(q) {
+        var inp = document.createElement('input');
+        inp.type = 'text';
+        inp.className = 'form-input';
+        inp.id = 'q-' + q.id;
+        inp.placeholder = q.placeholder || '';
+        if (state.answers[q.id] !== undefined) inp.value = state.answers[q.id];
+        inp.addEventListener('input', function() {
+            state.answers[q.id] = inp.value;
+            saveProgress();
+            updateProgress();
+            clearQuestionError(q.id);
+        });
+        return inp;
+    }
+
+    function renderTextarea(q) {
+        var ta = document.createElement('textarea');
+        ta.className = 'form-textarea';
+        ta.id = 'q-' + q.id;
+        ta.placeholder = q.placeholder || '';
+        if (state.answers[q.id] !== undefined) ta.value = state.answers[q.id];
+        ta.addEventListener('input', function() {
+            state.answers[q.id] = ta.value;
+            saveProgress();
+            updateProgress();
+            clearQuestionError(q.id);
+        });
+        return ta;
+    }
+
+    function renderLicenseTextarea(q) {
+        var ta = document.createElement('textarea');
+        ta.className = 'form-textarea';
+        ta.id = 'q-' + q.id;
+        ta.rows = 8;
+        ta.placeholder = q.placeholder || 'Paste or type your custom license text here...';
+        ta.style.fontFamily = 'var(--font-mono)';
+        ta.style.fontSize = '0.82rem';
+        if (state.answers[q.id] !== undefined) ta.value = state.answers[q.id];
+        ta.addEventListener('input', function() {
+            state.answers[q.id] = ta.value;
+            saveProgress();
+            updateProgress();
+            updatePreview();
+            clearQuestionError(q.id);
+        });
+        return ta;
+    }
+
+    function renderSelect(q) {
+        var sel = document.createElement('select');
+        sel.className = 'form-select';
+        sel.id = 'q-' + q.id;
+        var placeholderOpt = document.createElement('option');
+        placeholderOpt.value = '';
+        placeholderOpt.textContent = q.placeholder || 'Select an option...';
+        placeholderOpt.disabled = true;
+        placeholderOpt.selected = !state.answers[q.id];
+        sel.appendChild(placeholderOpt);
+        if (q.options) {
+            q.options.forEach(function(opt) {
+                var o = document.createElement('option');
+                o.value = typeof opt === 'string' ? opt : opt.value;
+                o.textContent = typeof opt === 'string' ? opt : opt.label;
+                if (state.answers[q.id] === o.value) o.selected = true;
+                sel.appendChild(o);
+            });
+        }
+        sel.addEventListener('change', function() {
+            state.answers[q.id] = sel.value;
+            saveProgress();
+            updateProgress();
+            clearQuestionError(q.id);
+        });
+        return sel;
+    }
+
+    function renderCheckboxGroup(q) {
+        var group = document.createElement('div');
+        group.className = 'checkbox-group';
+        var selected = Array.isArray(state.answers[q.id]) ? state.answers[q.id] : [];
+        if (q.options) {
+            q.options.forEach(function(opt) {
+                var val = typeof opt === 'string' ? opt : opt.value;
+                var lbl = typeof opt === 'string' ? opt : opt.label;
+                var item = document.createElement('label');
+                item.className = 'checkbox-item' + (selected.indexOf(val) !== -1 ? ' selected' : '');
+                item.innerHTML = '<input type="checkbox" value="' + escapeHtml(val) + '">' +
+                    '<span class="check-indicator"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>' +
+                    '<span class="check-label">' + escapeHtml(lbl) + '</span>';
+                var inp = item.querySelector('input');
+                inp.checked = selected.indexOf(val) !== -1;
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    inp.checked = !inp.checked;
+                    item.classList.toggle('selected', inp.checked);
+                    var arr = Array.isArray(state.answers[q.id]) ? state.answers[q.id].slice() : [];
+                    if (inp.checked) {
+                        if (arr.indexOf(val) === -1) arr.push(val);
+                    } else {
+                        arr = arr.filter(function(v) { return v !== val; });
+                    }
+                    state.answers[q.id] = arr;
+                    saveProgress();
+                    updateProgress();
+                    clearQuestionError(q.id);
+                });
+                group.appendChild(item);
+            });
+        }
+        return group;
+    }
+
+    function renderRadioGroup(q) {
+        var group = document.createElement('div');
+        group.className = 'radio-group';
+        var current = state.answers[q.id] || '';
+        if (q.options) {
+            q.options.forEach(function(opt) {
+                var val = typeof opt === 'string' ? opt : opt.value;
+                var lbl = typeof opt === 'string' ? opt : opt.label;
+                var item = document.createElement('label');
+                item.className = 'radio-item' + (current === val ? ' selected' : '');
+                item.innerHTML = '<input type="radio" name="' + q.id + '" value="' + escapeHtml(val) + '">' +
+                    '<span class="check-indicator"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="6"/></svg></span>' +
+                    '<span class="check-label">' + escapeHtml(lbl) + '</span>';
+                var inp = item.querySelector('input');
+                inp.checked = current === val;
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    $$('.radio-item', group).forEach(function(ri) { ri.classList.remove('selected'); ri.querySelector('input').checked = false; });
+                    item.classList.add('selected');
+                    inp.checked = true;
+                    state.answers[q.id] = val;
+                    saveProgress();
+                    updateProgress();
+                    clearQuestionError(q.id);
+                });
+                group.appendChild(item);
+            });
+        }
+        return group;
+    }
+
+    function renderMultiSelect(q) {
+        var wrap = document.createElement('div');
+        wrap.className = 'multi-select';
+        var selected = Array.isArray(state.answers[q.id]) ? state.answers[q.id] : [];
+        if (q.options) {
+            q.options.forEach(function(opt) {
+                var val = typeof opt === 'string' ? opt : opt.value;
+                var lbl = typeof opt === 'string' ? opt : opt.label;
+                var chip = document.createElement('span');
+                chip.className = 'chip' + (selected.indexOf(val) !== -1 ? ' selected' : '');
+                chip.textContent = lbl;
+                chip.addEventListener('click', function() {
+                    chip.classList.toggle('selected');
+                    var arr = Array.isArray(state.answers[q.id]) ? state.answers[q.id].slice() : [];
+                    if (chip.classList.contains('selected')) {
+                        if (arr.indexOf(val) === -1) arr.push(val);
+                    } else {
+                        arr = arr.filter(function(v) { return v !== val; });
+                    }
+                    state.answers[q.id] = arr;
+                    saveProgress();
+                    updateProgress();
+                    clearQuestionError(q.id);
+                });
+                wrap.appendChild(chip);
+            });
+        }
+        return wrap;
+    }
+
+    function renderReviewStep() {
+        var card = document.createElement('div');
+        card.className = 'question-card';
+        var html = '<div class="question-label"><span>Review Your Answers</span></div>';
+        html += '<div class="question-description">Please review all your selections before generating the license.</div>';
+        html += '<div id="review-summary" class="mt-2"></div>';
+        card.innerHTML = html;
+        setTimeout(populateReview, 0);
+        return card;
+    }
+
+    function populateReview() {
+        var container = $('#review-summary');
+        if (!container || !state.questions) return;
+        var html = '<table class="data-table"><thead><tr><th>Category</th><th>Setting</th><th>Value</th></tr></thead><tbody>';
+        STEPS.forEach(function(step) {
+            var qs = getQuestionsForStep(STEPS.indexOf(step));
+            qs.forEach(function(q) {
+                var val = state.answers[q.id];
+                if (val === undefined || val === null || val === '') val = '<span class="text-muted">Not set</span>';
+                else if (Array.isArray(val)) val = val.length ? val.join(', ') : '<span class="text-muted">None</span>';
+                else val = escapeHtml(String(val));
+                html += '<tr><td>' + escapeHtml(step.label) + '</td><td>' + escapeHtml(q.label) + '</td><td>' + val + '</td></tr>';
+            });
+        });
+        html += '</tbody></table>';
+        container.innerHTML = html;
+    }
+
+    function renderExportStep() {
+        var card = document.createElement('div');
+        card.className = 'question-card';
+        var html = '<div class="question-label"><span>Export Your License</span></div>';
+        html += '<div class="question-description">Your license has been generated. Choose an export format below.</div>';
+        html += '<div class="mt-2" style="display:flex;gap:10px;flex-wrap:wrap;">';
+        html += '<button class="btn btn-primary" onclick="window.__glgExport(\'text\')">Plain Text (.txt)</button>';
+        html += '<button class="btn btn-secondary" onclick="window.__glgExport(\'markdown\')">Markdown (.md)</button>';
+        html += '<button class="btn btn-secondary" onclick="window.__glgExport(\'html\')">HTML (.html)</button>';
+        html += '<button class="btn btn-secondary" onclick="window.__glgExport(\'json\')">JSON (.json)</button>';
+        html += '</div>';
+        card.innerHTML = html;
+        return card;
+    }
+
+    function clearQuestionError(qid) {
+        var card = document.querySelector('[data-question-id="' + qid + '"]');
+        if (card) card.classList.remove('has-error');
+    }
+
+    function validateCurrentStep() {
+        var qs = getQuestionsForStep(state.currentStep);
+        var valid = true;
+        qs.forEach(function(q) {
+            if (!q.required) return;
+            var val = state.answers[q.id];
+            var isEmpty = val === undefined || val === null || val === '' || (Array.isArray(val) && val.length === 0);
+            var card = document.querySelector('[data-question-id="' + q.id + '"]');
+            if (isEmpty) {
+                valid = false;
+                if (card) card.classList.add('has-error');
+            } else {
+                if (card) card.classList.remove('has-error');
+            }
+        });
+        if (!valid) {
+            toast('Please fill in all required fields.', 'warning');
+        }
+        return valid;
+    }
+
+    function goToStep(idx) {
+        if (idx < 0 || idx >= STEPS.length) return;
+        state.currentStep = idx;
+        saveProgress();
+        renderSidebar();
+        renderWizardStep(idx);
+        updateButtons();
+        updateStepIndicator();
+        updateProgress();
+        updatePreview();
+        $('#main-scroll').scrollTop = 0;
+    }
+
+    function updatePreview() {
+        var content = $('#preview-content');
+        if (state.licenseText) {
+            content.innerHTML = '<div class="license-text">' + escapeHtml(state.licenseText) + '</div>';
+            return;
+        }
+        var hasAny = Object.keys(state.answers).some(function(k) {
+            var v = state.answers[k];
+            return v !== undefined && v !== null && v !== '' && !(Array.isArray(v) && v.length === 0);
+        });
+        if (hasAny) {
+            var preview = generatePreviewText();
+            if (preview) {
+                content.innerHTML = '<div class="license-text">' + escapeHtml(preview) + '</div>';
+                return;
+            }
+        }
+        content.innerHTML = '<div class="preview-placeholder">' +
+            '<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>' +
+            '<p>License preview will appear here as you answer questions.</p></div>';
+    }
+
+    function generatePreviewText() {
+        var a = state.answers;
+        var sections = [];
+        sections.push('GRANULAR LICENSE');
+        sections.push('================\n');
+        if (a['project_name']) sections.push('Project: ' + a['project_name']);
+        if (a['copyright_holder']) sections.push('Copyright (c) ' + new Date().getFullYear() + ' ' + a['copyright_holder']);
+        sections.push('');
+
+        if (a['license_type']) {
+            sections.push('1. LICENSE GRANT');
+            sections.push('   This software is licensed under the ' + a['license_type'] + ' terms.');
+            sections.push('');
+        }
+        if (a['commercial_use']) {
+            sections.push('2. COMMERCIAL USE');
+            sections.push('   Commercial use is ' + a['commercial_use'] + '.');
+            sections.push('');
+        }
+        if (a['patent_grant']) {
+            sections.push('3. PATENT GRANT');
+            sections.push('   ' + a['patent_grant']);
+            sections.push('');
+        }
+        if (a['source_disclosure']) {
+            sections.push('4. SOURCE CODE');
+            sections.push('   Source code disclosure: ' + a['source_disclosure']);
+            sections.push('');
+        }
+        if (a['ai_usage']) {
+            sections.push('5. AI & DATA USAGE');
+            sections.push('   ' + a['ai_usage']);
+            sections.push('');
+        }
+        if (a['modification_rights']) {
+            sections.push('6. MODIFICATION');
+            sections.push('   ' + a['modification_rights']);
+            sections.push('');
+        }
+        if (a['warranty_disclaimer']) {
+            sections.push('DISCLAIMER: ' + a['warranty_disclaimer']);
+        }
+        return sections.join('\n');
+    }
+
+    async function generateLicense() {
+        if (state.generating) return;
+        state.generating = true;
+        var genBtn = $('#btn-generate');
+        genBtn.disabled = true;
+        genBtn.innerHTML = '<span class="loading-spinner"></span> Generating...';
+
+        var data = await apiPost('/api/compile', { answers: state.answers });
+        if (data && data.license) {
+            state.licenseText = data.license;
+            updatePreview();
+            toast('License generated successfully!', 'success');
+            $('#btn-export').disabled = false;
+        } else if (data && data.error) {
+            toast('Generation failed: ' + data.error, 'error');
+        }
+        state.generating = false;
+        genBtn.disabled = false;
+        genBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Generate License';
+    }
+
+    async function validateLicense() {
+        if (!state.licenseText) {
+            toast('No license to validate. Generate one first.', 'warning');
+            return;
+        }
+        var data = await apiPost('/api/validate', { license: state.licenseText });
+        if (data) {
+            if (data.valid) {
+                toast('License validation passed!', 'success');
+            } else {
+                toast('Validation issues: ' + (data.issues ? data.issues.join('; ') : 'Unknown issues'), 'warning');
+            }
+        }
+    }
+
+    async function explainLicense() {
+        if (!state.licenseText) {
+            toast('No license to explain. Generate one first.', 'warning');
+            return;
+        }
+        var data = await apiPost('/api/explain', { license: state.licenseText });
+        if (data && data.explanation) {
+            showModal('AI License Explanation',
+                '<div style="white-space:pre-wrap;line-height:1.7;">' + escapeHtml(data.explanation) + '</div>',
+                [{ label: 'Close', cls: 'btn-primary' }]
+            );
+        }
+    }
+
+    async function checkCompatibility() {
+        var data = await apiGet('/api/compatibility');
+        if (data && data.compatibilities) {
+            var html = '<table class="data-table"><thead><tr><th>License</th><th>Compatible</th><th>Notes</th></tr></thead><tbody>';
+            data.compatibilities.forEach(function(c) {
+                var badge = c.compatible ?
+                    '<span class="badge badge-success">Compatible</span>' :
+                    '<span class="badge badge-danger">Incompatible</span>';
+                html += '<tr><td>' + escapeHtml(c.name) + '</td><td>' + badge + '</td><td>' + escapeHtml(c.notes || '') + '</td></tr>';
+            });
+            html += '</tbody></table>';
+            showModal('Compatibility Report', html, [{ label: 'Close', cls: 'btn-primary' }]);
+        }
+    }
+
+    function exportLicense(format) {
+        if (!state.licenseText) {
+            toast('No license to export.', 'warning');
+            return;
+        }
+        var blob, filename, mime;
+        switch (format) {
+            case 'json':
+                blob = new Blob([JSON.stringify({ answers: state.answers, license: state.licenseText }, null, 2)], { type: 'application/json' });
+                filename = 'license.json';
+                break;
+            case 'markdown':
+                var md = '# License\n\n' + state.licenseText;
+                blob = new Blob([md], { type: 'text/markdown' });
+                filename = 'LICENSE.md';
+                break;
+            case 'html':
+                var h = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>License</title><style>body{font-family:sans-serif;max-width:800px;margin:40px auto;padding:20px;line-height:1.7;color:#333;}pre{background:#f5f5f5;padding:16px;border-radius:6px;overflow-x:auto;}</style></head><body><pre>' + escapeHtml(state.licenseText) + '</pre></body></html>';
+                blob = new Blob([h], { type: 'text/html' });
+                filename = 'license.html';
+                break;
+            default:
+                blob = new Blob([state.licenseText], { type: 'text/plain' });
+                filename = 'LICENSE.txt';
+        }
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        toast('Exported as ' + filename, 'success');
+
+        apiPost('/api/export', { format: format, license: state.licenseText, answers: state.answers }).catch(function() {});
+    }
+
+    window.__glgExport = exportLicense;
+
+    function setupSearch() {
+        var input = $('#search-input');
+        var results = $('#search-results');
+        var debounceTimer = null;
+
+        input.addEventListener('input', function() {
+            clearTimeout(debounceTimer);
+            var query = input.value.trim().toLowerCase();
+            if (query.length < 2) {
+                results.classList.add('hidden');
+                return;
+            }
+            debounceTimer = setTimeout(function() { performSearch(query); }, 250);
+        });
+
+        input.addEventListener('focus', function() {
+            if (input.value.trim().length >= 2) {
+                results.classList.remove('hidden');
+            }
+        });
+
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.search-container')) {
+                results.classList.add('hidden');
+            }
+        });
+    }
+
+    function performSearch(query) {
+        var results = $('#search-results');
+        if (!state.questions) {
+            results.innerHTML = '<div class="search-no-results">No data loaded yet.</div>';
+            results.classList.remove('hidden');
+            return;
+        }
+        var matches = state.questions.filter(function(q) {
+            return q.label.toLowerCase().indexOf(query) !== -1 ||
+                   (q.description && q.description.toLowerCase().indexOf(query) !== -1) ||
+                   q.id.toLowerCase().indexOf(query) !== -1;
+        });
+        if (matches.length === 0) {
+            results.innerHTML = '<div class="search-no-results">No results found.</div>';
+        } else {
+            results.innerHTML = '';
+            matches.forEach(function(q) {
+                var stepName = STEPS.find(function(s) { return s.id === q.step; });
+                var div = document.createElement('div');
+                div.className = 'search-result-item';
+                div.innerHTML = '<div class="sr-label">' + escapeHtml(q.label) + '</div>' +
+                    '<div class="sr-step">' + (stepName ? stepName.label : q.step) + '</div>';
+                div.addEventListener('click', function() {
+                    var idx = STEPS.findIndex(function(s) { return s.id === q.step; });
+                    if (idx !== -1) {
+                        goToStep(idx);
+                        setTimeout(function() {
+                            var card = document.querySelector('[data-question-id="' + q.id + '"]');
+                            if (card) {
+                                card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                card.style.boxShadow = '0 0 0 2px var(--accent)';
+                                setTimeout(function() { card.style.boxShadow = ''; }, 2000);
+                            }
+                        }, 100);
+                    }
+                    results.classList.add('hidden');
+                    $('#search-input').value = '';
+                });
+                results.appendChild(div);
+            });
+        }
+        results.classList.remove('hidden');
+    }
+
+    function setupTheme() {
+        var toggle = $('#theme-toggle');
+        var stored = null;
+        try { stored = localStorage.getItem('glg_theme'); } catch (e) { /* ignore */ }
+        if (stored) document.documentElement.setAttribute('data-theme', stored);
+
+        toggle.addEventListener('click', function() {
+            var current = document.documentElement.getAttribute('data-theme');
+            var next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            try { localStorage.setItem('glg_theme', next); } catch (e) { /* ignore */ }
+        });
+    }
+
+    function setupKeyboard() {
+        document.addEventListener('keydown', function(e) {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') {
+                if (e.key === 'Escape') e.target.blur();
+                return;
+            }
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                $('#search-input').focus();
+                return;
+            }
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+                e.preventDefault();
+                if (state.currentStep < STEPS.length - 1) goToStep(state.currentStep + 1);
+            }
+            if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (state.currentStep > 0) goToStep(state.currentStep - 1);
+            }
+            if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+                e.preventDefault();
+                if (state.currentStep === STEPS.length - 1) generateLicense();
+                else if (state.currentStep < STEPS.length - 1) goToStep(state.currentStep + 1);
+            }
+        });
+    }
+
+    function setupModal() {
+        $('#modal-close').addEventListener('click', hideModal);
+        $('#modal-overlay').addEventListener('click', function(e) {
+            if (e.target === $('#modal-overlay')) hideModal();
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && !$('#modal-overlay').classList.contains('hidden')) {
+                hideModal();
+            }
+        });
+    }
+
+    function setupMobileSidebar() {
+        var backdrop = document.createElement('div');
+        backdrop.className = 'sidebar-backdrop';
+        document.body.appendChild(backdrop);
+
+        $('#sidebar-toggle').addEventListener('click', function() {
+            $('#sidebar').classList.toggle('mobile-open');
+            backdrop.classList.toggle('visible');
+        });
+
+        backdrop.addEventListener('click', function() {
+            $('#sidebar').classList.remove('mobile-open');
+            backdrop.classList.remove('visible');
+        });
+
+        var previewPanel = $('#preview-panel');
+        if (previewPanel) {
+            $('#btn-toggle-preview').addEventListener('click', function() {
+                previewPanel.classList.toggle('collapsed');
+                previewPanel.classList.toggle('mobile-open');
+            });
+        }
+    }
+
+    async function loadQuestions() {
+        var data = await apiGet('/api/questionnaire');
+        if (data && data.questions) {
+            state.questions = data.questions;
+        } else {
+            state.questions = getDefaultQuestions();
+            toast('Using built-in questionnaire.', 'info');
+        }
+        renderSidebar();
+        renderWizardStep(state.currentStep);
+        updateButtons();
+        updateStepIndicator();
+        updateProgress();
+        updatePreview();
+    }
+
+    function getDefaultQuestions() {
+        return [
+            { id: 'project_name', step: 'intro', type: 'text', label: 'Project Name', description: 'What is the name of your project?', placeholder: 'e.g., MyAwesomeProject', required: true },
+            { id: 'intro_overview', step: 'intro', type: 'radio', label: 'License Complexity', description: 'How complex do you want your license to be?', options: ['Simple', 'Standard', 'Comprehensive'], required: false },
+
+            { id: 'ownership_type', step: 'ownership', type: 'radio', label: 'Ownership Model', description: 'Who holds the primary copyright?', options: ['Individual', 'Organization', 'Community', 'Multiple Holders'], required: true },
+            { id: 'copyright_holder', step: 'ownership', type: 'text', label: 'Copyright Holder', description: 'Name of the copyright holder.', placeholder: 'e.g., Jane Doe or Acme Corp', required: true },
+            { id: 'cla_required', step: 'ownership', type: 'radio', label: 'Contributor License Agreement', description: 'Require contributors to sign a CLA?', options: ['Yes', 'No', 'Optional'], required: false },
+
+            { id: 'copyright_notice', step: 'copyright', type: 'radio', label: 'Copyright Notice Requirement', description: 'Should users include a copyright notice?', options: ['Required', 'Recommended', 'Optional'], required: true },
+            { id: 'license_header', step: 'copyright', type: 'radio', label: 'License Header in Files', description: 'Require license headers in source files?', options: ['Yes, every file', 'Yes, top-level files only', 'No'], required: false },
+            { id: 'patent_clause', step: 'copyright', type: 'checkbox', label: 'Additional Copyright Clauses', description: 'Select any additional clauses.', options: ['Moral rights waiver', 'Attribution requirement', 'Change log requirement', 'Version tracking'], required: false },
+
+            { id: 'commercial_use', step: 'commercial', type: 'radio', label: 'Commercial Use', description: 'Is commercial use allowed?', options: ['Allowed without restriction', 'Allowed with attribution', 'Allowed with royalty', 'Prohibited'], required: true },
+            { id: 'saa_threshold', step: 'commercial', type: 'text', label: 'SaaS Threshold', description: 'Revenue threshold for triggering requirements (USD, blank if N/A).', placeholder: 'e.g., 100000', required: false },
+            { id: 'dual_license', step: 'commercial', type: 'radio', label: 'Dual Licensing', description: 'Offer under a commercial alternative?', options: ['Yes', 'No'], required: false },
+            { id: 'ad_clause', step: 'commercial', type: 'radio', label: 'Anti-Competitive Clause', description: 'Restrict use by direct competitors?', options: ['Yes', 'No'], required: false },
+
+            { id: 'patent_grant', step: 'patent', type: 'radio', label: 'Patent Grant', description: 'Grant patent rights to users?', options: ['Explicit grant with retaliation', 'Explicit grant, no retaliation', 'No patent grant', 'Deferred grant'], required: true },
+            { id: 'patent_retaliation', step: 'patent', type: 'radio', label: 'Patent Retaliation', description: 'Revoke patent rights if user sues for patent infringement?', options: ['Yes', 'No'], required: false },
+            { id: 'patent_claims', step: 'patent', type: 'checkbox', label: 'Patent Scope', description: 'Which patent aspects to cover?', options: ['Method patents', 'System patents', 'Design patents', 'All patent types'], required: false },
+
+            { id: 'source_disclosure', step: 'source', type: 'radio', label: 'Source Code Disclosure', description: 'When must source code be disclosed?', options: ['On distribution', 'On first use', 'On demand', 'Never required'], required: true },
+            { id: 'source_format', step: 'source', type: 'multi-select', label: 'Accepted Source Formats', description: 'Which source formats are acceptable?', options: ['Git repository', 'Archive (tar.gz/zip)', 'Direct file distribution', 'SCM export'], required: false },
+            { id: 'source_window', step: 'source', type: 'select', label: 'Source Availability Window', description: 'How long must source be available?', options: ['Indefinitely', '3 years', '5 years', '10 years', 'Until project ends'], required: false },
+
+            { id: 'distribution_scope', step: 'distribution', type: 'multi-select', label: 'Distribution Scope', description: 'What types of distribution are permitted?', options: ['Binary distribution', 'Source distribution', 'SaaS/cloud', 'Mobile app stores', 'Embedded devices'], required: true },
+            { id: 'distribution_restrictions', step: 'distribution', type: 'checkbox', label: 'Distribution Restrictions', description: 'Any restrictions on distribution?', options: ['No distribution of modified versions', 'Geographic restrictions', 'Age restrictions', 'Platform restrictions'], required: false },
+            { id: 'redistribution_fee', step: 'distribution', type: 'radio', label: 'Redistribution Fee', description: 'Allow charging for redistribution?', options: ['Allowed', 'Not allowed', 'Allowed with source included'], required: false },
+
+            { id: 'modification_rights', step: 'modification', type: 'radio', label: 'Modification Rights', description: 'Can users modify the software?', options: ['Yes, unlimited', 'Yes, for personal use', 'Yes, with attribution only', 'No modifications allowed'], required: true },
+            { id: 'modification_disclosure', step: 'modification', type: 'radio', label: 'Modification Disclosure', description: 'Must modifications be disclosed?', options: ['Required if distributed', 'Required always', 'Never required', 'Required if commercial'], required: false },
+            { id: 'derivative_scope', step: 'modification', type: 'select', label: 'Derivative Works Scope', description: 'How broadly are derivative works defined?', options: ['Narrow (direct modifications only)', 'Medium (includes linking)', 'Broad (includes aggregation)', 'Very broad (includes usage)'], required: false },
+
+            { id: 'ai_usage', step: 'aidata', type: 'radio', label: 'AI Training Usage', description: 'Can this software be used to train AI models?', options: ['Allowed without restriction', 'Allowed with attribution', 'Allowed for non-commercial only', 'Prohibited'], required: true },
+            { id: 'data_collection', step: 'aidata', type: 'radio', label: 'Data Collection', description: 'Can the software collect user data?', options: ['Allowed with consent', 'Prohibited', 'Allowed for telemetry only'], required: false },
+            { id: 'ml_model_clause', step: 'aidata', type: 'checkbox', label: 'AI/ML Specific Clauses', description: 'Additional AI-related provisions.', options: ['Model output must be disclosed', 'Training data must be disclosed', 'AI-generated code treated as derivative', 'No non-compete for AI products'], required: false },
+
+            { id: 'compliance_jurisdiction', step: 'compliance', type: 'multi-select', label: 'Applicable Jurisdictions', description: 'Which jurisdictions does this license apply to?', options: ['United States', 'European Union', 'United Kingdom', 'Global', 'Other'], required: true },
+            { id: 'compliance_mechanism', step: 'compliance', type: 'select', label: 'Compliance Mechanism', description: 'How should compliance be enforced?', options: ['Self-certification', 'Third-party audit', 'Community review', 'Legal action only'], required: false },
+            { id: 'compliance_notices', step: 'compliance', type: 'checkbox', label: 'Required Notices', description: 'What notices must be included?', options: ['License text', 'Copyright notice', 'Author attribution', 'Modification notice', 'Disclaimer'], required: false },
+
+            { id: 'special_survival', step: 'special', type: 'select', label: 'License Survival Period', description: 'How long do obligations survive after termination?', options: ['30 days', '60 days', '90 days', '1 year', 'Indefinite'], required: false },
+            { id: 'special_severability', step: 'special', type: 'radio', label: 'Severability Clause', description: 'Include a severability clause?', options: ['Yes', 'No'], required: false },
+            { id: 'special_governing_law', step: 'special', type: 'text', label: 'Governing Law', description: 'Specify the governing law jurisdiction.', placeholder: 'e.g., State of California, USA', required: false },
+            { id: 'special_dispute_resolution', step: 'special', type: 'select', label: 'Dispute Resolution', description: 'How should disputes be resolved?', options: ['Arbitration', 'Mediation then arbitration', 'Court litigation', 'Informal resolution first'], required: false },
+            { id: 'warranty_disclaimer', step: 'special', type: 'radio', label: 'Warranty Disclaimer', description: 'Level of warranty disclaimer.', options: ['Full disclaimer (AS IS)', 'Limited warranty (90 days)', 'Limited warranty (1 year)', 'No disclaimer'], required: true },
+            { id: 'liability_cap', step: 'special', type: 'select', label: 'Liability Cap', description: 'Maximum liability for damages.', options: ['No limitation', 'Direct damages only', 'Limited to license fee', 'Limited to $100', 'Limited to $1000'], required: false },
+            { id: 'custom_terms', step: 'special', type: 'license-text', label: 'Custom License Terms', description: 'Add any custom license terms or clauses.', placeholder: 'Enter custom license text...', required: false },
+
+            { id: 'review_checklist', step: 'review', type: 'checkbox', label: 'Review Checklist', description: 'Confirm you have reviewed the following:', options: ['All copyright holders identified', 'Commercial terms verified', 'Patent clauses reviewed', 'Source disclosure requirements clear', 'Distribution scope confirmed', 'AI/data provisions reviewed', 'Compliance mechanism selected', 'Special terms finalized'], required: true },
+        ];
+    }
+
+    function setupEventListeners() {
+        $('#btn-next').addEventListener('click', function() {
+            if (!validateCurrentStep()) return;
+            if (state.currentStep < STEPS.length - 1) goToStep(state.currentStep + 1);
+        });
+
+        $('#btn-prev').addEventListener('click', function() {
+            if (state.currentStep > 0) goToStep(state.currentStep - 1);
+        });
+
+        $('#btn-generate').addEventListener('click', generateLicense);
+        $('#btn-validate').addEventListener('click', validateLicense);
+        $('#btn-explain').addEventListener('click', explainLicense);
+
+        $('#btn-copy').addEventListener('click', function() {
+            var text = state.licenseText || '';
+            if (!text) {
+                toast('Nothing to copy.', 'warning');
+                return;
+            }
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(function() {
+                    toast('Copied to clipboard!', 'success');
+                }).catch(function() {
+                    fallbackCopy(text);
+                });
+            } else {
+                fallbackCopy(text);
+            }
+        });
+
+        $('#btn-reset').addEventListener('click', function() {
+            showModal('Reset All Answers', '<p>Are you sure you want to reset all your answers? This cannot be undone.</p>', [
+                { label: 'Cancel', cls: 'btn-secondary' },
+                { label: 'Reset', cls: 'btn-danger', action: function() {
+                    state.answers = {};
+                    state.licenseText = '';
+                    state.currentStep = 0;
+                    saveProgress();
+                    try { localStorage.removeItem('glg_state'); } catch (e) { /* ignore */ }
+                    renderSidebar();
+                    renderWizardStep(0);
+                    updateButtons();
+                    updateStepIndicator();
+                    updateProgress();
+                    updatePreview();
+                    toast('All answers have been reset.', 'info');
+                }}
+            ]);
+        });
+
+        $('#btn-export').addEventListener('click', function() {
+            exportLicense('text');
+        });
+    }
+
+    function fallbackCopy(text) {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try {
+            document.execCommand('copy');
+            toast('Copied to clipboard!', 'success');
+        } catch (e) {
+            toast('Failed to copy.', 'error');
+        }
+        document.body.removeChild(ta);
+    }
+
+    async function checkHealth() {
+        var data = await apiGet('/api/health');
+        if (data && data.status === 'ok') {
+            console.log('[GLG] Backend connected.');
+        }
+    }
+
+    function init() {
+        loadProgress();
+        setupTheme();
+        setupEventListeners();
+        setupSearch();
+        setupModal();
+        setupKeyboard();
+        setupMobileSidebar();
+        loadQuestions();
+        checkHealth();
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+})();
+"#;
