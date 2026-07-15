@@ -1,0 +1,10 @@
+C:\Users\korde\Home\Github\Licra\target\release\deps\walkdir-38c3eb59b76af8a5.d: C:\Users\korde\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\walkdir-2.5.0\src\lib.rs C:\Users\korde\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\walkdir-2.5.0\src\dent.rs C:\Users\korde\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\walkdir-2.5.0\src\error.rs C:\Users\korde\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\walkdir-2.5.0\src\util.rs
+
+C:\Users\korde\Home\Github\Licra\target\release\deps\libwalkdir-38c3eb59b76af8a5.rlib: C:\Users\korde\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\walkdir-2.5.0\src\lib.rs C:\Users\korde\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\walkdir-2.5.0\src\dent.rs C:\Users\korde\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\walkdir-2.5.0\src\error.rs C:\Users\korde\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\walkdir-2.5.0\src\util.rs
+
+C:\Users\korde\Home\Github\Licra\target\release\deps\libwalkdir-38c3eb59b76af8a5.rmeta: C:\Users\korde\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\walkdir-2.5.0\src\lib.rs C:\Users\korde\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\walkdir-2.5.0\src\dent.rs C:\Users\korde\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\walkdir-2.5.0\src\error.rs C:\Users\korde\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\walkdir-2.5.0\src\util.rs
+
+C:\Users\korde\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\walkdir-2.5.0\src\lib.rs:
+C:\Users\korde\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\walkdir-2.5.0\src\dent.rs:
+C:\Users\korde\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\walkdir-2.5.0\src\error.rs:
+C:\Users\korde\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\walkdir-2.5.0\src\util.rs:

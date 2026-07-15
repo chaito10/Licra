@@ -1,0 +1,3 @@
+cargo:rerun-if-changed=licenses/
+cargo:rerun-if-changed=templates/
+cargo:rerun-if-changed=static/

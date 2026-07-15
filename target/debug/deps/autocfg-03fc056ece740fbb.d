@@ -1,0 +1,10 @@
+C:\Users\korde\Home\Github\Licra\target\debug\deps\autocfg-03fc056ece740fbb.d: C:\Users\korde\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\autocfg-1.5.1\src\lib.rs C:\Users\korde\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\autocfg-1.5.1\src\error.rs C:\Users\korde\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\autocfg-1.5.1\src\rustc.rs C:\Users\korde\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\autocfg-1.5.1\src\version.rs
+
+C:\Users\korde\Home\Github\Licra\target\debug\deps\libautocfg-03fc056ece740fbb.rlib: C:\Users\korde\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\autocfg-1.5.1\src\lib.rs C:\Users\korde\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\autocfg-1.5.1\src\error.rs C:\Users\korde\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\autocfg-1.5.1\src\rustc.rs C:\Users\korde\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\autocfg-1.5.1\src\version.rs
+
+C:\Users\korde\Home\Github\Licra\target\debug\deps\libautocfg-03fc056ece740fbb.rmeta: C:\Users\korde\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\autocfg-1.5.1\src\lib.rs C:\Users\korde\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\autocfg-1.5.1\src\error.rs C:\Users\korde\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\autocfg-1.5.1\src\rustc.rs C:\Users\korde\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\autocfg-1.5.1\src\version.rs
+
+C:\Users\korde\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\autocfg-1.5.1\src\lib.rs:
+C:\Users\korde\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\autocfg-1.5.1\src\error.rs:
+C:\Users\korde\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\autocfg-1.5.1\src\rustc.rs:
+C:\Users\korde\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\autocfg-1.5.1\src\version.rs:

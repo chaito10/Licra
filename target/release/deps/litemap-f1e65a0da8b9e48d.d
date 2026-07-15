@@ -1,0 +1,10 @@
+C:\Users\korde\Home\Github\Licra\target\release\deps\litemap-f1e65a0da8b9e48d.d: C:\Users\korde\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\litemap-0.8.2\src\lib.rs C:\Users\korde\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\litemap-0.8.2\src\map.rs C:\Users\korde\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\litemap-0.8.2\src\store\mod.rs C:\Users\korde\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\litemap-0.8.2\src\store\slice_impl.rs
+
+C:\Users\korde\Home\Github\Licra\target\release\deps\liblitemap-f1e65a0da8b9e48d.rlib: C:\Users\korde\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\litemap-0.8.2\src\lib.rs C:\Users\korde\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\litemap-0.8.2\src\map.rs C:\Users\korde\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\litemap-0.8.2\src\store\mod.rs C:\Users\korde\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\litemap-0.8.2\src\store\slice_impl.rs
+
+C:\Users\korde\Home\Github\Licra\target\release\deps\liblitemap-f1e65a0da8b9e48d.rmeta: C:\Users\korde\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\litemap-0.8.2\src\lib.rs C:\Users\korde\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\litemap-0.8.2\src\map.rs C:\Users\korde\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\litemap-0.8.2\src\store\mod.rs C:\Users\korde\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\litemap-0.8.2\src\store\slice_impl.rs
+
+C:\Users\korde\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\litemap-0.8.2\src\lib.rs:
+C:\Users\korde\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\litemap-0.8.2\src\map.rs:
+C:\Users\korde\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\litemap-0.8.2\src\store\mod.rs:
+C:\Users\korde\scoop\persist\rustup\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\litemap-0.8.2\src\store\slice_impl.rs:

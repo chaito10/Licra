@@ -1,0 +1,1 @@
+cargo:rustc-env=MIME_TYPES_GENERATED_PATH=C:\Users\korde\Home\Github\Licra\target\release\build\mime_guess-a2babfc055f7e579\out\mime_types_generated.rs
