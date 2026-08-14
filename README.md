@@ -1,5 +1,10 @@
 # GLG - Granular License Generator
 
+<p align="center">
+  <img src="assets/cover.png" alt="Licra" width="800"/>
+</p>
+
+
 ![Version](https://img.shields.io/github/v/release/chaito10/Licra) ![License](https://img.shields.io/github/license/chaito10/Licra)
 
 A modern, Rust-based license compiler that generates deterministic, granular software licenses from a comprehensive questionnaire. GLG compiles licenses from predefined clause templates, supports 30+ standard license types, and produces multiple output formats -- all from a single, offline-first binary.
