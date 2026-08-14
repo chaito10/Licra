@@ -1,6 +1,12 @@
 # GLG - Granular License Generator
 
+![Version](https://img.shields.io/github/v/release/chaito10/Licra) ![License](https://img.shields.io/github/license/chaito10/Licra)
+
 A modern, Rust-based license compiler that generates deterministic, granular software licenses from a comprehensive questionnaire. GLG compiles licenses from predefined clause templates, supports 30+ standard license types, and produces multiple output formats -- all from a single, offline-first binary.
+
+## What is this?
+
+GLG (Granular License Generator) is a deterministic, offline-first license compiler written in Rust. It turns a 300+ question questionnaire and 30+ SPDX license types into granular, auditable licenses, using a clause-template compiler with dependency resolution and conflict detection. It exports to 9 formats (including SPDX JSON and CycloneDX SBOM), supports Ed25519 signing and QR verification codes, and can optionally explain or suggest licenses through an AI provider — all from a single binary with no cloud dependency.
 
 ## Features
 
