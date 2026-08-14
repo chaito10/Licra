@@ -27,6 +27,13 @@ GLG (Granular License Generator) is a deterministic, offline-first license compi
 
 ## Installation
 
+### Scoop (Windows)
+
+```sh
+scoop bucket add chaito10 https://github.com/chaito10/scoop-bucket
+scoop install licra
+```
+
 ### From crates.io (when published)
 
 ```sh
