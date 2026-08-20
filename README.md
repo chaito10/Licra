@@ -26,6 +26,7 @@ GLG (Granular License Generator) is a deterministic, offline-first license compi
 - **Validation engine** with structural checks, SPDX validation, clause conflict detection, completeness scoring, and template variable verification
 - **AI integration** via optional LLM providers (Ollama, OpenAI-compatible, Claude, Gemini, DeepSeek, OpenRouter, llama.cpp)
 - **Interactive web UI** served via axum with dark/light themes, step wizard, live preview, search, and export
+- **Static PWA build** — single-file `index.html` that works fully offline with no server
 - **Deterministic output**: identical inputs always produce identical license text and hashes
 - **Offline-first**: no cloud dependency, all databases embedded in the binary
 - **Dual license**: MIT OR Apache-2.0

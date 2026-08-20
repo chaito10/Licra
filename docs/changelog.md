@@ -2,7 +2,7 @@
 
 All notable changes to GLG.
 
-## [1.0.0] - 2026-07-15
+## [1.0.0] - 2026-08-14
 
 ### Added
 
@@ -81,6 +81,7 @@ All notable changes to GLG.
   - Progress tracking with localStorage
   - Responsive design
   - CORS-enabled REST API
+  - Static single-file PWA build (`build-pwa.py`) — works offline with no server
 
 - **CLI** with 14 commands
   - web, new, open, generate, export, import
