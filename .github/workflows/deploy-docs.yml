@@ -1,4 +1,4 @@
-name: Deploy Documentation
+name: Deploy GitHub Pages
 
 on:
   push:
@@ -7,6 +7,8 @@ on:
     paths:
       - 'docs/**'
       - 'mkdocs.yml'
+      - 'static/**'
+      - 'build-pwa.py'
   workflow_dispatch:
 
 permissions:
@@ -45,7 +47,13 @@ jobs:
           pip install mkdocs-material mkdocs-minify-plugin
 
       - name: Build documentation
-        run: mkdocs build --strict --site-dir _site
+        run: mkdocs build --strict --site-dir _site/docs
+
+      - name: Build PWA
+        run: python build-pwa.py
+
+      - name: Copy PWA to site root
+        run: cp static/index.html _site/index.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
