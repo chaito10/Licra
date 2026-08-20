@@ -1,9 +1,9 @@
 site_name: GLG - Granular License Generator
-site_url: https://glg-project.github.io/glg/
+site_url: https://chaito10.github.io/Licra/docs/
 site_description: A modern, Rust-based license compiler for generating deterministic, granular software licenses.
 site_author: GLG Contributors
-repo_url: https://github.com/glg-project/glg
-repo_name: glg-project/glg
+repo_url: https://github.com/chaito10/Licra
+repo_name: chaito10/Licra
 edit_uri: edit/main/docs/
 
 copyright: Copyright &copy; 2026 GLG Contributors. Licensed under MIT OR Apache-2.0.
