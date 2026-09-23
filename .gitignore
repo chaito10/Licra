@@ -30,4 +30,9 @@ site/
 
 # Python
 __pycache__/
-*.pyctarget/
+*.pyc
+.venv/
+
+# Build / packaging output
+dist/
+target/
