@@ -292,6 +292,13 @@ cargo clippy             # Lint
 cargo fmt                # Format code
 ```
 
+## Merged repos
+
+- **`license`** (MPLS — modular SPDX-clause license framework, Python) was
+  merged into this repo on 23 Sep 2026. Its content lives under
+  [`_archive/license/`](_archive/license/), history preserved via
+  `git subtree add --squash`.
+
 ## License
 
 Licensed under either of:
