@@ -1,0 +1,430 @@
+own-001	[Ownership]	Choice	Who holds the copyright for this software?
+      opts= individual|organization|joint|public_domain
+own-002	[Ownership]	Boolean	Are there multiple copyright holders?
+own-003	[Ownership]	Boolean	Can ownership of this software be transferred?
+own-004	[Ownership]	Boolean	Are there existing ownership claims or liens on this software?
+own-005	[Ownership]	Boolean	Is this a work made for hire?
+copy-001	[Copyright]	Boolean	Does this license explicitly address copyright?
+copy-002	[Copyright]	Text	What copyright notice format should be used?
+copy-003	[Copyright]	Boolean	Must copyright registration be obtained?
+copy-004	[Copyright]	Choice	Can copyright be waived or dedicated to the public domain?
+      opts= license_only|public_domain|both
+copy-005	[Copyright]	Choice	How long should the copyright protection period be?
+      opts= statutory|limited|perpetual
+com-001	[CommercialUse]	Choice	Is commercial use of this software permitted?
+      opts= permitted|conditional|not_permitted|separate_license
+com-002	[CommercialUse]	Boolean	Does commercial use require a separate license?
+com-003	[CommercialUse]	Number	What revenue threshold triggers commercial license requirements?
+com-004	[CommercialUse]	MultiChoice	What commercial use restrictions apply?
+      opts= attribution_required|revenue_sharing|source_disclosure|notification_required
+com-005	[CommercialUse]	Boolean	Should a dual-licensing model be offered?
+res-001	[Research]	Boolean	Is use in academic or scientific research permitted?
+res-002	[Research]	Boolean	Are research results built with this software required to be shared openly?
+res-003	[Research]	Boolean	Do research institutions receive special license terms?
+res-004	[Research]	Choice	What are the publication requirements when using this software in research?
+      opts= citation_required|acknowledgment|none
+acad-001	[Academic]	Boolean	Is use in academic coursework and teaching permitted?
+acad-002	[Academic]	Choice	What academic license terms should apply?
+      opts= free_with_attribution|discounted|full|free
+acad-003	[Academic]	Boolean	Can students use this software in personal projects?
+acad-004	[Academic]	Boolean	Are academic institutions required to include the license in course materials?
+pat-001	[PatentGrant]	Boolean	Does this license include an express patent grant?
+pat-002	[PatentGrant]	Choice	What is the scope of the patent grant?
+      opts= worldwide|territory|use_case|none
+pat-003	[PatentGrant]	MultiChoice	What conditions attach to the patent grant?
+      opts= license_compliance|no_litigation|improvement_disclosure|unconditional
+pat-004	[PatentGrant]	Boolean	Does the license include a patent retaliation clause?
+ptr-001	[PatentRetaliation]	Boolean	Should the patent retaliation clause be included?
+ptr-002	[PatentRetaliation]	MultiChoice	What triggers the patent retaliation clause?
+      opts= direct_litigation|indirect_litigation|patent_assertion|contributory
+ptr-003	[PatentRetaliation]	Choice	What is the scope of the patent retaliation?
+      opts= patent_only|all_rights|tiered
+ptr-004	[PatentRetaliation]	Boolean	Is there a defensive termination provision?
+tm-001	[Trademark]	Boolean	Can the software name and trademarks be used by licensees?
+tm-002	[Trademark]	MultiChoice	What trademark usage restrictions apply?
+      opts= no_modification|attribution_only|no_use|approved
+tm-003	[Trademark]	Boolean	Are trademarks licensed separately from the copyright?
+tm-004	[Trademark]	Text	What are the trademark attribution requirements?
+src-001	[SourceDisclosure]	Choice	Must source code be disclosed when distributing the software?
+      opts= no|on_request|mandatory|derivatives
+src-002	[SourceDisclosure]	MultiChoice	What triggers source code disclosure obligations?
+      opts= binary_distribution|saas_deployment|internal_large|commercial
+src-003	[SourceDisclosure]	Choice	What is the timeline for source code disclosure?
+      opts= immediate|30_days|90_days|1_year
+src-004	[SourceDisclosure]	Choice	Where must disclosed source code be hosted?
+      opts= public_repo|company_site|any_url|physical
+slink-001	[StaticLinking]	Boolean	Is static linking to this software permitted?
+slink-002	[StaticLinking]	Boolean	Does static linking create a derivative work?
+slink-003	[StaticLinking]	Choice	What license propagation requirements apply for static linking?
+      opts= no_propagation|same_license|compatible|lgpl_exception
+slink-004	[StaticLinking]	Boolean	Is object code disclosure required for statically linked works?
+dlink-001	[DynamicLinking]	Boolean	Is dynamic linking to this software permitted?
+dlink-002	[DynamicLinking]	Boolean	Does dynamic linking create a derivative work?
+dlink-003	[DynamicLinking]	Choice	What license obligations apply to dynamically linked code?
+      opts= no_propagation|same_license|notice
+dlink-004	[DynamicLinking]	Boolean	Is API/interface stability guaranteed for dynamic linking?
+net-001	[NetworkUse]	Boolean	Does providing the software over a network constitute distribution?
+net-002	[NetworkUse]	MultiChoice	What network use restrictions apply?
+      opts= attribution_required|source_disclosure|notification|none
+net-003	[NetworkUse]	Choice	How are API interactions classified?
+      opts= not_distribution|use|distribution
+net-004	[NetworkUse]	Boolean	Is network interaction logging required?
+dist-001	[Distribution]	Boolean	Is binary distribution of the software permitted?
+dist-002	[Distribution]	MultiChoice	What conditions apply to distribution?
+      opts= license_included|attribution|source_available|none
+dist-003	[Distribution]	Boolean	Must the license be included in all distributions?
+dist-004	[Distribution]	MultiChoice	Are there restrictions on distribution media?
+      opts= any_medium|electronic|physical
+mod-001	[Modification]	Boolean	Is modification of the software allowed?
+mod-002	[Modification]	Boolean	Must modifications to the software be disclosed?
+mod-003	[Modification]	Choice	What naming requirements apply to modified versions?
+      opts= different_name|indicate|none
+mod-004	[Modification]	Boolean	Are modifications subject to review or approval?
+priv-001	[PrivateUse]	Boolean	Is private use of the software permitted without restrictions?
+priv-002	[PrivateUse]	Boolean	Does private use include internal business use?
+priv-003	[PrivateUse]	Choice	Are there sharing limitations on private use?
+      opts= unlimited_sharing|user_limited|no_sharing
+priv-004	[PrivateUse]	Choice	What are the private modification requirements?
+      opts= no_requirements|retain_license|retain_attribution
+gov-001	[Government]	Boolean	Is use by government agencies permitted?
+gov-002	[Government]	Choice	What license terms apply to government agencies?
+      opts= same_terms|enhanced|restricted|custom
+gov-003	[Government]	MultiChoice	Are there restrictions on government use?
+      opts= surveillance|human_rights|none
+gov-004	[Government]	Boolean	Must the software comply with government procurement standards?
+mil-001	[Military]	Boolean	Is use by military organizations permitted?
+mil-002	[Military]	MultiChoice	Which military branches are subject to restrictions?
+      opts= all_branches|combat_units|intelligence|none
+mil-003	[Military]	Boolean	Is use by defense contractors permitted?
+mil-004	[Military]	MultiChoice	What military application restrictions apply?
+      opts= weapons_systems|autonomous_weapons|surveillance|none
+ai-001	[AiTraining]	Choice	Is use of this software for AI/ML model training permitted?
+      opts= permitted|non_commercial|not_permitted|separate_license
+ai-002	[AiTraining]	MultiChoice	What data requirements apply to AI training?
+      opts= attribution|disclosure|model_card|none
+ai-003	[AiTraining]	Choice	How should AI model outputs be licensed?
+      opts= unrestricted|same_license|attribution
+ai-004	[AiTraining]	Boolean	Is training data attribution required for AI models?
+aiinf-001	[AiInference]	Boolean	Is use of AI models trained on this software permitted for inference?
+aiinf-002	[AiInference]	MultiChoice	Are there restrictions on inference outputs?
+      opts= none|commercial_restricted|attribution|domain
+aiinf-003	[AiInference]	Boolean	Must inference usage be reported?
+aiinf-004	[AiInference]	Choice	Is commercial inference licensing required?
+      opts= included|separate|not_permitted
+mw-001	[ModelWeights]	Boolean	Are model weights included in the license scope?
+mw-002	[ModelWeights]	Choice	What are the model weight distribution terms?
+      opts= same_license|permissive|prohibited|attribution
+mw-003	[ModelWeights]	Choice	How should fine-tuned model weights be licensed?
+      opts= sharealike|free|disclose_data
+mw-004	[ModelWeights]	Boolean	Are model weight modifications permitted?
+ds-001	[DatasetUsage]	Boolean	Is dataset usage covered by this license?
+ds-002	[DatasetUsage]	Choice	What are the dataset redistribution terms?
+      opts= same_license|odc|cc|no_redistribution
+ds-003	[DatasetUsage]	Boolean	Are dataset derivative works allowed?
+ds-004	[DatasetUsage]	Text	What dataset attribution requirements apply?
+redist-001	[Redistribution]	Boolean	Is redistribution of the original software allowed?
+redist-002	[Redistribution]	MultiChoice	What conditions apply to redistribution?
+      opts= license_included|notices|source|none
+redist-003	[Redistribution]	Boolean	Can the software be redistributed in combination with other software?
+redist-004	[Redistribution]	MultiChoice	Are there redistributor obligations beyond the license text?
+      opts= warranty_disclaimer|notification|registration|none
+resale-001	[Resale]	Choice	Is resale of the software permitted?
+      opts= permitted|conditional|not_permitted
+resale-002	[Resale]	Choice	Are there resale pricing restrictions?
+      opts= free_pricing|cost_only|capped
+resale-003	[Resale]	Number	Is revenue sharing required on resale?
+resale-004	[Resale]	Boolean	Must resale activities be reported to the licensor?
+host-001	[Hosting]	Boolean	Is hosting of the software for third parties permitted?
+host-002	[Hosting]	MultiChoice	Are there hosting service restrictions?
+      opts= attribution|source_disclosure|notification|none
+host-003	[Hosting]	Boolean	Does hosting require a separate license?
+host-004	[Hosting]	Boolean	Must hosting providers offer SLA guarantees?
+cloud-001	[Cloud]	Boolean	Is cloud deployment of the software permitted?
+cloud-002	[Cloud]	MultiChoice	Are there cloud provider restrictions?
+      opts= any_provider|approved_only|self_hosted
+cloud-003	[Cloud]	Boolean	Is cloud usage metering required?
+cloud-004	[Cloud]	Choice	How should multi-tenant cloud deployments be licensed?
+      opts= per_instance|per_tenant|per_user|unlimited
+saas-001	[Saas]	Choice	Is SaaS deployment of the software permitted?
+      opts= permitted|conditional|separate_license|not_permitted
+saas-002	[Saas]	Number	Is revenue sharing required for SaaS deployments?
+saas-003	[Saas]	Number	Are there user count limitations for SaaS deployments?
+saas-004	[Saas]	Boolean	Must SaaS providers display specific branding?
+paas-001	[Paas]	Boolean	Is PaaS deployment of the software permitted?
+paas-002	[Paas]	MultiChoice	Are there PaaS integration restrictions?
+      opts= attribution|not_sole|none
+paas-003	[Paas]	Choice	What PaaS licensing model should be used?
+      opts= usage_based|subscription|per_developer|free_attribution
+paas-004	[Paas]	Text	What data handling requirements apply to PaaS deployments?
+cont-001	[Containers]	Boolean	Is containerization of the software permitted?
+cont-002	[Containers]	Choice	Can container images be redistributed?
+      opts= with_license|prohibited|unrestricted
+cont-003	[Containers]	MultiChoice	Are there base image restrictions for containers?
+      opts= any_base|compatible|approved
+cont-004	[Containers]	Text	What orchestration platform terms apply?
+oem-001	[Oem]	Choice	Is OEM bundling of the software permitted?
+      opts= with_license|unrestricted|not_permitted|approval
+oem-002	[Oem]	Number	Are there OEM license fees?
+oem-003	[Oem]	MultiChoice	What OEM branding requirements apply?
+      opts= logo|attribution|splash|none
+oem-004	[Oem]	Boolean	Do OEM partners have support obligations?
+attr-001	[Attribution]	Boolean	Is attribution of the original authors required?
+attr-002	[Attribution]	Text	What format must the attribution take?
+attr-003	[Attribution]	MultiChoice	Where must attribution appear?
+      opts= source_code|documentation|about_page|packaging
+attr-004	[Attribution]	Choice	Can attribution notices be modified by downstream users?
+      opts= no_modification|add_only|free_modification
+noti-001	[Notice]	Boolean	Are license notices required beyond attribution?
+noti-002	[Notice]	MultiChoice	Where must license notices be placed?
+      opts= readme|license_file|source_headers|binary
+noti-003	[Notice]	Text	What content must the license notice contain?
+noti-004	[Notice]	Boolean	Can license notices be removed by downstream users?
+war-001	[Warranty]	Choice	Is warranty provided with the software?
+      opts= disclaimer|limited|full|none
+war-002	[Warranty]	Choice	What is the warranty duration?
+      opts= none|30_days|90_days|1_year
+war-003	[Warranty]	MultiChoice	What does the warranty cover?
+      opts= bugs|security|performance|documentation
+war-004	[Warranty]	Boolean	Is an express warranty disclaimer included?
+liab-001	[Liability]	Boolean	Is liability limitation included in the license?
+liab-002	[Liability]	Choice	What is the maximum liability amount?
+      opts= license_fee|fixed|no_liability|uncapped
+liab-003	[Liability]	MultiChoice	What types of liability are excluded?
+      opts= indirect|consequential|punitive|data_loss
+liab-004	[Liability]	Boolean	Is indemnification required from the licensor?
+term-001	[Termination]	MultiChoice	Under what conditions does the license terminate?
+      opts= license_violation|patent_litigation|insolvency|never
+term-002	[Termination]	Boolean	Is there a cure period for license violations?
+term-003	[Termination]	Choice	What is the cure period duration?
+      opts= 15_days|30_days|60_days|90_days
+term-004	[Termination]	MultiChoice	What post-termination obligations exist?
+      opts= destroy_copies|survive_disclaimers|survive_indemnification|none
+rev-001	[Revocation]	Choice	Can the license be revoked by the licensor?
+      opts= for_cause|at_will|irrevocable
+rev-002	[Revocation]	Text	What notice is required for license revocation?
+rev-003	[Revocation]	Choice	When does revocation take effect?
+      opts= immediate|30_days_notice|60_days_notice
+rev-004	[Revocation]	Boolean	Is there an appeal process for revocation?
+exp-001	[Expiration]	Boolean	Does the license have a fixed expiration date?
+exp-002	[Expiration]	Choice	What is the license duration?
+      opts= perpetual|1_year|3_years|5_years
+exp-003	[Expiration]	Text	What are the renewal requirements?
+exp-004	[Expiration]	Boolean	Must expiration be notified to licensees?
+jur-001	[Jurisdiction]	Choice	Which jurisdiction governs this license?
+      opts= delaware_usa|california_usa|england_wales|germany
+jur-002	[Jurisdiction]	Choice	What dispute resolution method applies?
+      opts= negotiation_then_litigation|arbitration|mediation_arbitration|litigation
+jur-003	[Jurisdiction]	Boolean	Is arbitration mandatory for disputes?
+jur-004	[Jurisdiction]	Text	What is the governing law selection?
+ec-001	[ExportControl]	Boolean	Are there export restrictions on this software?
+ec-002	[ExportControl]	Choice	What is the export control classification?
+      opts= ear99|eccn_5d002|wassenaar|usml
+ec-003	[ExportControl]	Text	Which countries are subject to export restrictions?
+ec-004	[ExportControl]	MultiChoice	What export compliance requirements apply?
+      opts= self_classification|end_user_cert|export_license|none
+crypt-001	[Cryptography]	Boolean	Does the software use cryptographic algorithms?
+crypt-002	[Cryptography]	MultiChoice	Are there restrictions on which cryptographic algorithms can be used?
+      opts= any_algorithm|fips|nist|no_cryptography
+crypt-003	[Cryptography]	Boolean	Are export restrictions applicable due to cryptographic usage?
+crypt-004	[Cryptography]	Choice	What cryptographic usage license applies?
+      opts= same_license|special|public_domain
+wm-001	[Watermarking]	Boolean	Is watermarking of outputs required?
+wm-002	[Watermarking]	Boolean	Is watermark removal prohibited?
+wm-003	[Watermarking]	Choice	What watermarking standards should be used?
+      opts= c2pa|iptc|custom|any
+wm-004	[Watermarking]	Boolean	Is watermark detection required?
+drm-001	[Drm]	Boolean	Can DRM be applied to the software?
+drm-002	[Drm]	Boolean	Is DRM circumvention prohibited?
+drm-003	[Drm]	MultiChoice	Are there DRM technology restrictions?
+      opts= no_hardware_drm|open_standards|no_drm|any
+drm-004	[Drm]	Choice	What are the user rights regarding DRM?
+      opts= full_rights|with_exceptions|limited
+dw-001	[DerivativeWorks]	Boolean	Are derivative works of the software allowed?
+dw-002	[DerivativeWorks]	Choice	What license must derivative works use?
+      opts= same_license|compatible|any|creators_choice
+dw-003	[DerivativeWorks]	Boolean	Is attribution required for derivative works?
+dw-004	[DerivativeWorks]	Text	What constitutes a 'substantial modification' for derivative work classification?
+fork-001	[Forks]	Boolean	Is forking of the software permitted?
+fork-002	[Forks]	Choice	Are there naming requirements for forks?
+      opts= different_name|indicate|none
+fork-003	[Forks]	Boolean	Must fork creators notify the original project?
+fork-004	[Forks]	Boolean	Should forks contribute improvements back to the original project?
+contrib-001	[Contributions]	Boolean	Are external contributions to the software accepted?
+contrib-002	[Contributions]	Choice	What licensing terms apply to contributions?
+      opts= same_license|dco|cla|contributors_choice
+contrib-003	[Contributions]	Text	What is the contribution review process?
+contrib-004	[Contributions]	Boolean	Do contributors retain rights to their contributions?
+pr-001	[PullRequests]	Boolean	Are pull requests accepted as a contribution method?
+pr-002	[PullRequests]	MultiChoice	What review requirements apply to pull requests?
+      opts= code_review|tests_pass|docs_updated|none
+pr-003	[PullRequests]	MultiChoice	What are the merge criteria for pull requests?
+      opts= review_approved|ci_passing|no_conflicts|signed_off
+pr-004	[PullRequests]	Choice	Who owns the code in merged pull requests?
+      opts= contributor_retains|assigned_to_project|shared
+cla-001	[ContributorLicenseAgreement]	Boolean	Is a Contributor License Agreement (CLA) required?
+cla-002	[ContributorLicenseAgreement]	Text	What are the CLA terms?
+cla-003	[ContributorLicenseAgreement]	Boolean	Must the CLA be signed before a contribution is accepted?
+cla-004	[ContributorLicenseAgreement]	Boolean	Does the CLA cover patent rights?
+dual-001	[DualLicensing]	Boolean	Is dual licensing offered for this software?
+dual-002	[DualLicensing]	Text	What is the second license option?
+dual-003	[DualLicensing]	MultiChoice	Under what conditions can users choose between the two licenses?
+      opts= user_choice|non_commercial|open_source|org_type
+dual-004	[DualLicensing]	Text	How can users switch between the two licenses?
+roy-001	[Royalty]	Choice	Are royalties required for use of this software?
+      opts= no_royalty|revenue_based|usage_based|per_unit
+roy-002	[Royalty]	Number	What is the royalty rate?
+roy-003	[Royalty]	Choice	What is the royalty payment schedule?
+      opts= monthly|quarterly|annual|one_time
+roy-004	[Royalty]	Text	What royalty reporting requirements apply?
+sub-001	[Subscription]	Boolean	Is this a subscription-based license?
+sub-002	[Subscription]	Choice	What is the subscription period?
+      opts= monthly|quarterly|annual|multi_year
+sub-003	[Subscription]	Text	What are the subscription renewal terms?
+sub-004	[Subscription]	Text	What is the subscription cancellation policy?
+seat-001	[PerSeat]	Boolean	Is per-seat licensing used for this software?
+seat-002	[PerSeat]	Number	What is the maximum number of seats?
+seat-003	[PerSeat]	Boolean	Is seat sharing allowed between users?
+seat-004	[PerSeat]	Boolean	Are seat audits required?
+user-001	[PerUser]	Boolean	Is per-user licensing used for this software?
+user-002	[PerUser]	Number	What is the maximum number of users?
+user-003	[PerUser]	MultiChoice	Are there user type restrictions?
+      opts= all_counted|guests_excluded|readonly_excluded|external_separate
+user-004	[PerUser]	Text	What user authentication requirements apply?
+dev-001	[PerDevice]	Boolean	Is per-device licensing used for this software?
+dev-002	[PerDevice]	Number	What is the maximum number of devices?
+dev-003	[PerDevice]	MultiChoice	Are there device type restrictions?
+      opts= any_device|desktop|server|mobile
+dev-004	[PerDevice]	Boolean	Is device migration allowed?
+cpu-001	[PerCpu]	Boolean	Is per-CPU licensing used for this software?
+cpu-002	[PerCpu]	Choice	How are CPU cores counted for licensing purposes?
+      opts= physical_cores|logical_cores|vcores|per_socket
+cpu-003	[PerCpu]	Choice	How are virtual CPUs handled for licensing?
+      opts= same_as_physical|per_vm|host_based|cloud_terms
+cpu-004	[PerCpu]	Choice	Are there multi-processor licensing considerations?
+      opts= per_socket|per_machine|unlimited
+comp-001	[PerCompany]	Boolean	Is per-company licensing used for this software?
+comp-002	[PerCompany]	Choice	Does per-company licensing cover subsidiaries?
+      opts= parent_only|all_subsidiaries|majority_owned|custom
+comp-003	[PerCompany]	Number	Is there a company size restriction for licensing?
+comp-004	[PerCompany]	Text	What happens to the license during company mergers or acquisitions?
+oc-001	[OpenCore]	Boolean	Does this project use an open-core licensing model?
+oc-002	[OpenCore]	Text	What is the split between core and premium features?
+oc-003	[OpenCore]	Choice	What license applies to the open-source core?
+      opts= mit|apache2|gpl3|agpl3
+oc-004	[OpenCore]	Text	What is the premium feature license?
+ef-001	[EnterpriseFeatures]	Boolean	Are enterprise-specific features included in the license?
+ef-002	[EnterpriseFeatures]	MultiChoice	What enterprise features require a separate license?
+      opts= sso|audit_logging|compliance|priority_support
+ef-003	[EnterpriseFeatures]	Choice	What is the pricing model for enterprise features?
+      opts= per_user|flat_rate|usage_based|included
+ef-004	[EnterpriseFeatures]	Boolean	Is enterprise support included with enterprise features?
+ff-001	[FeatureFlags]	Boolean	Are feature flags used for licensing control?
+ff-002	[FeatureFlags]	Choice	How are feature flags enforced?
+      opts= server_side|client_side|license_key|none
+ff-003	[FeatureFlags]	Boolean	Is bypassing feature flags prohibited?
+ff-004	[FeatureFlags]	Boolean	Is an audit trail maintained for feature flag changes?
+telem-001	[Telemetry]	Boolean	Is telemetry collection included in the software?
+telem-002	[Telemetry]	Boolean	Is telemetry opt-out allowed?
+telem-003	[Telemetry]	MultiChoice	How is telemetry data used?
+      opts= product_improvement|bug_fixes|analytics|security
+telem-004	[Telemetry]	Boolean	Is telemetry data shared with third parties?
+privy-001	[Privacy]	Boolean	Does the license include privacy provisions?
+privy-002	[Privacy]	MultiChoice	Which privacy regulations must be complied with?
+      opts= gdpr|ccpa|pippeda|lgpd
+privy-003	[Privacy]	Text	What data processing terms apply?
+privy-004	[Privacy]	Boolean	Are privacy audit requirements included?
+child-001	[Children]	Boolean	Is use of this software by children permitted?
+child-002	[Children]	Number	What is the minimum age requirement for using this software?
+child-003	[Children]	Boolean	Is parental consent required for children's use?
+child-004	[Children]	Boolean	Is COPPA compliance required for use in the United States?
+hc-001	[Healthcare]	Choice	Is use of this software in healthcare applications permitted?
+      opts= permitted|conditional|not_recommended|prohibited
+hc-002	[Healthcare]	Boolean	Is HIPAA compliance required for healthcare use?
+hc-003	[Healthcare]	Choice	What medical device classification applies?
+      opts= not_medical_device|fda_class_1|fda_class_2|fda_class_3
+hc-004	[Healthcare]	MultiChoice	What healthcare data handling requirements apply?
+      opts= encryption|access_controls|audit_logging|data_minimization
+fin-001	[Finance]	Choice	Is use of this software in financial applications permitted?
+      opts= permitted|conditional|not_recommended|prohibited
+fin-002	[Finance]	MultiChoice	What financial regulation compliance is required?
+      opts= pci_dss|sox|mifid2|basel3
+fin-003	[Finance]	Boolean	Is a fiduciary responsibility disclaimer included?
+fin-004	[Finance]	Text	What financial data handling requirements apply?
+govu-001	[GovernmentUse]	Boolean	Is specific government use beyond general government agency use addressed?
+govu-002	[GovernmentUse]	MultiChoice	Are there government agency restrictions?
+      opts= intelligence|law_enforcement|none
+govu-003	[GovernmentUse]	Text	What government reporting requirements apply?
+govu-004	[GovernmentUse]	Boolean	Are government audit rights included?
+def-001	[Defense]	Choice	Is use in defense applications permitted?
+      opts= permitted|restricted|not_permitted
+def-002	[Defense]	Boolean	Is ITAR compliance required?
+def-003	[Defense]	Choice	What classification level restrictions apply?
+      opts= unclassified|secret|top_secret|none
+def-004	[Defense]	Text	What defense procurement terms apply?
+bio-001	[Biotechnology]	Choice	Is use in biotechnology applications permitted?
+      opts= permitted|conditional|not_recommended|prohibited
+bio-002	[Biotechnology]	Boolean	Is biosafety compliance required?
+bio-003	[Biotechnology]	Boolean	Are there GMO restrictions?
+bio-004	[Biotechnology]	Choice	What biotech data sharing requirements apply?
+      opts= research_sharing|regulatory|none
+nuc-001	[Nuclear]	Choice	Is use in nuclear applications permitted?
+      opts= permitted|non_weapons|not_permitted
+nuc-002	[Nuclear]	Boolean	Is nuclear safety compliance required?
+nuc-003	[Nuclear]	MultiChoice	What nuclear regulatory requirements apply?
+      opts= nrc|iaea|national
+nuc-004	[Nuclear]	Boolean	Is a nuclear liability disclaimer included?
+robo-001	[Robotics]	Boolean	Is use in robotics applications permitted?
+robo-002	[Robotics]	MultiChoice	Are there autonomous operation restrictions?
+      opts= human_oversight|no_autonomous|unrestricted
+robo-003	[Robotics]	Boolean	Is safety certification required?
+robo-004	[Robotics]	Text	What robotics liability terms apply?
+iot-001	[Iot]	Boolean	Is use in IoT devices permitted?
+iot-002	[Iot]	MultiChoice	Are there IoT device restrictions?
+      opts= any_device|consumer|industrial|no_iot
+iot-003	[Iot]	Text	What IoT data collection terms apply?
+iot-004	[Iot]	Boolean	Are firmware update requirements included?
+emb-001	[Embedded]	Boolean	Is use in embedded systems permitted?
+emb-002	[Embedded]	MultiChoice	Are there embedded system restrictions?
+      opts= any_embedded|consumer|industrial|no_embedded
+emb-003	[Embedded]	Text	What flash memory requirements apply?
+emb-004	[Embedded]	MultiChoice	What embedded license compatibility requirements apply?
+      opts= permissive|gpl_compatible|none
+edu-001	[Education]	Boolean	Is use in educational settings permitted?
+edu-002	[Education]	Choice	What educational institution licensing terms apply?
+      opts= free_with_attribution|discounted|commercial|free
+edu-003	[Education]	Text	What terms apply to student projects using the software?
+edu-004	[Education]	Choice	Can educational content created with the software be licensed freely?
+      opts= any_license|open_content|same_license
+ri-001	[ResearchInstitutions]	Boolean	Are research institutions given special license terms?
+ri-002	[ResearchInstitutions]	Choice	What are the publication requirements for research institutions?
+      opts= citation|acknowledgment|none
+ri-003	[ResearchInstitutions]	Choice	What research data sharing requirements apply?
+      opts= open_access|upon_request|none
+ri-004	[ResearchInstitutions]	Text	What are the research collaboration terms?
+np-001	[Nonprofit]	Boolean	Is use by nonprofit organizations permitted?
+np-002	[Nonprofit]	Boolean	Is nonprofit status verification required?
+np-003	[Nonprofit]	Choice	What nonprofit license terms should apply?
+      opts= free_with_attribution|discounted|commercial
+np-004	[Nonprofit]	Number	Are there revenue restrictions for nonprofit license eligibility?
+fnd-001	[Foundation]	Boolean	Is the software managed by a foundation?
+fnd-002	[Foundation]	Text	What foundation governance requirements apply?
+fnd-003	[Foundation]	Text	What foundation reporting obligations exist?
+fnd-004	[Foundation]	Text	What foundation trademark usage rules apply?
+ce-001	[CommercialExceptions]	Boolean	Are there exceptions to commercial use restrictions?
+ce-002	[CommercialExceptions]	MultiChoice	What exception categories exist?
+      opts= small_business|startup|open_source_projects|internal_tools
+ce-003	[CommercialExceptions]	Text	What is the exception approval process?
+ce-004	[CommercialExceptions]	Choice	How long do commercial exceptions last?
+      opts= annual_review|permanent|2_years
+sp-001	[SpecialPermissions]	Boolean	Are special permissions available for non-standard use cases?
+sp-002	[SpecialPermissions]	Text	What is the special permission request process?
+sp-003	[SpecialPermissions]	Text	What are the special permission approval criteria?
+sp-004	[SpecialPermissions]	Text	What are the special permission revocation terms?
+own-006	[Ownership]	Boolean	Is joint ownership documented in a written agreement?
+attr-005	[Attribution]	Boolean	Is attribution required in binary distributions?
+noti-005	[Notice]	Boolean	Are change notices required for modifications?
+war-005	[Warranty]	Boolean	Is there a warranty for third-party components?
+dw-005	[DerivativeWorks]	Choice	Are plugins and extensions considered derivative works?
+      opts= depends_on_api|all_derivatives|no_derivatives
+ai-005	[AiTraining]	Boolean	Must AI training provenance be documented?
+privy-005	[Privacy]	Text	What data breach notification requirements apply?

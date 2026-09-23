@@ -963,9 +963,6 @@
     GLG.state = state;
     GLG.STEPS = STEPS;
     GLG.exportLicense = exportLicense;
-    GLG.goToStep = goToStep;
-    GLG.updatePreview = updatePreview;
-    GLG.tryCompile = tryCompile;
     window.GLG = GLG;
     window.__glgExport = exportLicense;
 

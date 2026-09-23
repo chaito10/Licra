@@ -1200,3 +1200,78 @@ table.data-table tr:hover td {
 .sidebar-backdrop.visible {
     display: block;
 }
+
+.category-tag {
+    margin: 4px 0 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 4px;
+}
+
+.category-tag .category-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+}
+
+.synth-question {
+    border: 1px dashed var(--accent-muted);
+}
+
+.synth-question .question-label::before {
+    content: 'base';
+    font-size: 0.62rem;
+    color: var(--accent);
+    border: 1px solid var(--accent-muted);
+    border-radius: 10px;
+    padding: 1px 6px;
+    margin-right: 6px;
+    font-weight: 600;
+    text-transform: uppercase;
+    flex-shrink: 0;
+}
+
+.legal-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    margin-top: 12px;
+    padding: 8px 10px;
+    font-size: 0.74rem;
+    line-height: 1.5;
+    color: var(--text-muted);
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-sm);
+}
+
+.legal-note svg {
+    flex-shrink: 0;
+    margin-top: 1px;
+    color: var(--warning);
+}
+
+.opt-desc {
+    display: block;
+    font-size: 0.74rem;
+    color: var(--text-muted);
+    margin-top: 1px;
+}
+
+.export-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 8px;
+}
+
+.export-grid .export-btn {
+    width: 100%;
+    justify-content: flex-start;
+}
+
+.preview-live {
+    color: var(--text-primary);
+}

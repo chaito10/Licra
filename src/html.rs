@@ -39,7 +39,7 @@ const INDEX_HTML: &str = r#"<!DOCTYPE html>
                     </svg>
                     <div class="logo-text">
                         <h1>GLG</h1>
-                        <span class="version">v1.0</span>
+                        <span class="version">v1.0.0</span>
                     </div>
                 </div>
                 <div class="header-links">
