@@ -1,5 +1,7 @@
 # GLG - Granular License Generator
 
+> **Note:** current build is the Python `licra` CLI (see pyproject.toml).
+
 <p align="center">
   <img src="assets/cover.png" alt="Licra" width="800"/>
 </p>
